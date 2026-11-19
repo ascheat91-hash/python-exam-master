@@ -1,0 +1,386 @@
+/* ==========================================================================
+   PYTHON EXAM MASTER - MAIN MOBILE-FIRST STYLESHEET
+   Course: Python Programming (BSC/BA/CSE/MD/5/DSC/301) - Semester V
+   Optimized specifically for Android Smartphones, Fast Touch & Zero Clutter
+   ========================================================================== */
+
+:root {
+  --primary: #1e3a8a;          /* Deep College Blue */
+  --primary-light: #3b82f6;    /* Vibrant Blue */
+  --primary-dark: #172554;     /* Deep Navy */
+  --accent: #d97706;           /* Warm Amber/Gold for Exam Accents */
+  --accent-light: #fef3c7;
+  --success: #15803d;          /* Forest Green */
+  --success-bg: #dcfce7;
+  --danger: #b91c1c;           /* Crimson Red */
+  --danger-bg: #fee2e2;
+  --warning: #b45309;
+  
+  --bg-main: #f8fafc;          /* Soft Eye-friendly Page Background */
+  --bg-card: #ffffff;          /* Pure White Cards */
+  --border-color: #e2e8f0;     /* Subtle Gray Borders */
+  
+  --text-main: #0f172a;        /* Deep Charcoal for crisp reading */
+  --text-muted: #64748b;       /* Secondary details */
+  --text-light: #94a3b8;
+  
+  --code-bg: #1e293b;          /* Dark theme for code display */
+  --code-text: #f8fafc;
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --primary: #3b82f6;
+  --primary-light: #60a5fa;
+  --primary-dark: #1d4ed8;
+  --accent: #f59e0b;
+  --accent-light: #451a03;
+  --success: #22c55e;
+  --success-bg: #052e16;
+  --danger: #ef4444;
+  --danger-bg: #450a0a;
+  
+  --bg-main: #0b0f19;
+  --bg-card: #131b2e;
+  --border-color: #1e293b;
+  
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-light: #64748b;
+  
+  --code-bg: #030712;
+  --code-text: #38bdf8;
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  font-size: 15px;
+  padding-bottom: 74px; /* Space for bottom navigation bar on mobile */
+  touch-action: manipulation;
+}
+
+/* Header Styles */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:active {
+  background-color: var(--border-color);
+}
+
+/* Main Container */
+.container {
+  width: 100%;
+  max-width: 600px; /* Constrained for optimal smartphone width */
+  margin: 0 auto;
+  padding: 14px 16px;
+}
+
+/* College Meta Banner */
+.college-banner {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #ffffff;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+.college-badge {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.college-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.college-details {
+  font-size: 0.82rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Cards & Modules */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+  min-height: 46px; /* Touch target requirement */
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.btn-primary:active {
+  background-color: var(--primary-dark);
+}
+
+.btn-accent {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+.btn-accent:active {
+  background-color: #b45309;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1.5px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.btn-outline:active {
+  background-color: var(--border-color);
+}
+
+.btn-sm {
+  width: auto;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  min-height: 36px;
+}
+
+/* Badges & Tags */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.badge-unit {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+.badge-marks {
+  background-color: var(--accent-light);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.badge-success {
+  background-color: var(--success-bg);
+  color: var(--success);
+}
+
+/* Progress Bar */
+.progress-container {
+  background-color: var(--border-color);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.progress-bar {
+  background-color: var(--primary-light);
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* Bottom Navigation Bar for Mobile */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 6px;
+  flex: 1;
+}
+
+.nav-item.active {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.nav-icon {
+  font-size: 1.25rem;
+  margin-bottom: 2px;
+}
+
+/* Code Blocks */
+pre, code {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.88rem;
+}
+
+.code-block {
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  margin: 10px 0;
+  line-height: 1.45;
+  border-left: 4px solid var(--primary-light);
+}
+
+.inline-code {
+  background-color: var(--border-color);
+  color: var(--danger);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+/* Dry Run Table */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 10px 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.dry-run-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.dry-run-table th {
+  background-color: var(--border-color);
+  color: var(--text-main);
+  padding: 8px 10px;
+  font-weight: 600;
+}
+
+.dry-run-table td {
+  padding: 8px 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Offline Banner */
+.offline-banner {
+  background-color: #fef08a;
+  color: #854d0e;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: 600;
+  display: none;
+}
+
+.offline-banner.visible {
+  display: block;
+}
+

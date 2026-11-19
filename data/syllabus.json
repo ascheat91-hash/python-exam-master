@@ -1,0 +1,120 @@
+{
+  "course": {
+    "name": "Python Programming",
+    "code": "BSC/BA/CSE/MD/5/DSC/301",
+    "semester": "Semester V",
+    "maxMarks": 35,
+    "durationMinutes": 180,
+    "pattern": {
+      "q1": {
+        "title": "Question 1 (Compulsory)",
+        "marks": 7,
+        "count": 7,
+        "marksPerQuestion": 1,
+        "scope": "Entire Syllabus (Unit-I & Unit-II)"
+      },
+      "unit1": {
+        "title": "Unit - I",
+        "marks": 14,
+        "options": ["Question 2", "Question 3"],
+        "rule": "Attempt ANY ONE"
+      },
+      "unit2": {
+        "title": "Unit - II",
+        "marks": 14,
+        "options": ["Question 4", "Question 5"],
+        "rule": "Attempt ANY ONE"
+      }
+    }
+  },
+  "units": [
+    {
+      "id": "unit-1",
+      "number": "I",
+      "title": "Unit-I: Basics, Data Types & Operators",
+      "chapters": [
+        {
+          "id": "ch-1",
+          "number": 1,
+          "title": "Introduction to Python, Keywords, Comments & Variables",
+          "topics": [
+            { "id": "u1-t1", "title": "Introduction to Python & Features" },
+            { "id": "u1-t2", "title": "Keywords & Identifiers (Naming Rules)" },
+            { "id": "u1-t3", "title": "Comments (Single-line & Multiline)" },
+            { "id": "u1-t4", "title": "Variables: Declaration, Assignment, Initialization, Reading Input & Restrictions" }
+          ]
+        },
+        {
+          "id": "ch-2",
+          "number": 2,
+          "title": "Data Types in Python",
+          "topics": [
+            { "id": "u1-t5", "title": "Implicit Declaration & Dynamic Typing" },
+            { "id": "u1-t6", "title": "Numbers: int, float, complex" },
+            { "id": "u1-t7", "title": "Strings (Creation, Indexing, Immutability)" },
+            { "id": "u1-t8", "title": "Boolean Data Type (True / False)" }
+          ]
+        },
+        {
+          "id": "ch-3",
+          "number": 3,
+          "title": "Operators & Expressions",
+          "topics": [
+            { "id": "u1-t9", "title": "Arithmetic Operators (+, -, *, /, //, %, **)" },
+            { "id": "u1-t10", "title": "Comparison / Relational Operators (==, !=, >, <, >=, <=)" },
+            { "id": "u1-t11", "title": "Increment / Assignment Operators (=, +=, -=, etc.)" },
+            { "id": "u1-t12", "title": "Logical Operators (and, or, not)" },
+            { "id": "u1-t13", "title": "Identity Operators (is, is not)" },
+            { "id": "u1-t14", "title": "Operator Precedence & Associativity" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unit-2",
+      "number": "II",
+      "title": "Unit-II: Conditionals, Loops & Lists",
+      "chapters": [
+        {
+          "id": "ch-4",
+          "number": 4,
+          "title": "Conditional Statements & Decision Making",
+          "topics": [
+            { "id": "u2-t1", "title": "Control Flow & Decision Making Concept" },
+            { "id": "u2-t2", "title": "Simple if Statement" },
+            { "id": "u2-t3", "title": "if-else Statement" },
+            { "id": "u2-t4", "title": "if-elif-else Ladder" },
+            { "id": "u2-t5", "title": "Nested if Statement" }
+          ]
+        },
+        {
+          "id": "ch-5",
+          "number": 5,
+          "title": "Loop Statements & Branching",
+          "topics": [
+            { "id": "u2-t6", "title": "while Loop with Counter & Condition" },
+            { "id": "u2-t7", "title": "for Loop & Iteration" },
+            { "id": "u2-t8", "title": "range() Function (start, stop, step)" },
+            { "id": "u2-t9", "title": "Nested Loops" },
+            { "id": "u2-t10", "title": "Branching Statements: break, continue, pass" }
+          ]
+        },
+        {
+          "id": "ch-6",
+          "number": 6,
+          "title": "Lists & Implementing Arrays",
+          "topics": [
+            { "id": "u2-t11", "title": "Creating Lists & Memory Representation" },
+            { "id": "u2-t12", "title": "Accessing Elements (Positive & Negative Indexing, Slicing)" },
+            { "id": "u2-t13", "title": "Updating Elements & List Mutability" },
+            { "id": "u2-t14", "title": "Deleting Elements (del, pop, remove, clear)" },
+            { "id": "u2-t15", "title": "Built-in Functions for Lists (len, min, max, sum, sorted)" },
+            { "id": "u2-t16", "title": "List Methods (append, insert, extend, reverse, index, count)" },
+            { "id": "u2-t17", "title": "Implementing Arrays using Lists in Python" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

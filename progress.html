@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Your Learning & Exam Progress - Python Exam Master</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+  <div id="offline-banner" class="offline-banner">⚡ Offline Mode Active</div>
+
+  <header class="app-header">
+    <a href="index.html" class="header-brand">
+      <span>⬅️</span>
+      <span>Learning Progress</span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle-btn" class="icon-btn">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Overall Completion Card -->
+    <div class="card" style="text-align: center; padding: 20px 14px;">
+      <span class="badge badge-unit">TOTAL SYLLABUS READINESS</span>
+      <div id="prog-total-percent" style="font-size: 2.8rem; font-weight: 800; color: var(--primary); margin: 6px 0;">0%</div>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        <strong id="prog-topics-count">0</strong> / 31 Topics Completed
+      </p>
+      <div class="progress-container" style="height: 10px; margin-top: 10px;">
+        <div id="prog-topics-bar" class="progress-bar" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Unit-wise Progress -->
+    <div class="card">
+      <h3 class="card-title">📦 Unit-wise Breakdown</h3>
+      <div style="margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+          <span>Unit-I: Basics, Data Types & Operators</span>
+          <strong id="prog-u1-text">0 / 14</strong>
+        </div>
+        <div class="progress-container"><div id="prog-u1-bar" class="progress-bar" style="width: 0%;"></div></div>
+      </div>
+
+      <div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+          <span>Unit-II: Conditionals, Loops & Lists</span>
+          <strong id="prog-u2-text">0 / 17</strong>
+        </div>
+        <div class="progress-container"><div id="prog-u2-bar" class="progress-bar" style="width: 0%;"></div></div>
+      </div>
+    </div>
+
+    <!-- Practice Questions Performance -->
+    <div class="card">
+      <h3 class="card-title">✍️ Practice Bank Performance</h3>
+      <div style="display: flex; gap: 10px; text-align: center; margin-top: 8px;">
+        <div style="flex: 1; background: var(--success-bg); padding: 10px; border-radius: var(--radius-sm);">
+          <strong style="color: var(--success); font-size: 1.4rem;" id="prog-correct">0</strong>
+          <span style="display: block; font-size: 0.75rem; color: var(--success);">Correct</span>
+        </div>
+        <div style="flex: 1; background: var(--danger-bg); padding: 10px; border-radius: var(--radius-sm);">
+          <strong style="color: var(--danger); font-size: 1.4rem;" id="prog-wrong">0</strong>
+          <span style="display: block; font-size: 0.75rem; color: var(--danger);">Wrong</span>
+        </div>
+        <div style="flex: 1; background: var(--bg-main); padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+          <strong style="color: var(--primary); font-size: 1.4rem;" id="prog-accuracy">0%</strong>
+          <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Accuracy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exam Mock Simulation History -->
+    <div class="card">
+      <h3 class="card-title">⏱️ Mock Examination History</h3>
+      <div id="exam-history-list" style="font-size: 0.85rem; line-height: 1.5; color: var(--text-muted);">
+        No mock examinations taken yet.
+      </div>
+    </div>
+
+    <!-- Local Progress Backup & Restore -->
+    <div class="card">
+      <h3 class="card-title">💾 Backup & Restore Progress (Local File)</h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px;">
+        Save your study progress to your phone as a small JSON file, or restore it anytime without internet.
+      </p>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-outline btn-sm" style="flex: 1;" onclick="exportBackup()">
+          📥 Export Backup
+        </button>
+        <button class="btn btn-outline btn-sm" style="flex: 1;" onclick="document.getElementById('import-file-input').click()">
+          📤 Import Backup
+        </button>
+      </div>
+      <input type="file" id="import-file-input" accept=".json" style="display: none;" onchange="importBackup(event)">
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="notes.html" class="nav-item">
+      <span class="nav-icon">📖</span>
+      <span>Notes</span>
+    </a>
+    <a href="practice.html" class="nav-item">
+      <span class="nav-icon">✍️</span>
+      <span>Practice</span>
+    </a>
+    <a href="exam.html" class="nav-item">
+      <span class="nav-icon">⏱️</span>
+      <span>Exam</span>
+    </a>
+    <a href="progress.html" class="nav-item active">
+      <span class="nav-icon">📊</span>
+      <span>Progress</span>
+    </a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Topics Completion
+      const completed = StorageManager.getCompletedTopics();
+      const total = 31;
+      const count = completed.length;
+      const pct = Math.round((count / total) * 100);
+
+      document.getElementById('prog-topics-count').textContent = count;
+      document.getElementById('prog-total-percent').textContent = pct + '%';
+      document.getElementById('prog-topics-bar').style.width = pct + '%';
+
+      let u1 = 0, u2 = 0;
+      completed.forEach(id => {
+        if (id.startsWith('u1-')) u1++;
+        if (id.startsWith('u2-')) u2++;
+      });
+
+      const u1Pct = Math.round((u1 / 14) * 100);
+      const u2Pct = Math.round((u2 / 17) * 100);
+
+      document.getElementById('prog-u1-text').textContent = `${u1} / 14 (${u1Pct}%)`;
+      document.getElementById('prog-u1-bar').style.width = u1Pct + '%';
+
+      document.getElementById('prog-u2-text').textContent = `${u2} / 17 (${u2Pct}%)`;
+      document.getElementById('prog-u2-bar').style.width = u2Pct + '%';
+
+      // 2. Question Performance
+      const qProg = StorageManager.getQuestionProgress();
+      const correct = qProg.correctCount || 0;
+      const wrong = qProg.wrongCount || 0;
+      const totalAttempted = correct + wrong;
+      const accuracy = totalAttempted > 0 ? Math.round((correct / totalAttempted) * 100) : 0;
+
+      document.getElementById('prog-correct').textContent = correct;
+      document.getElementById('prog-wrong').textContent = wrong;
+      document.getElementById('prog-accuracy').textContent = accuracy + '%';
+
+      // 3. Exam History
+      const exams = StorageManager.getExamHistory();
+      const examEl = document.getElementById('exam-history-list');
+      if (exams.length > 0) {
+        examEl.innerHTML = exams.map(e => {
+          const totalStr = e.totalScore !== undefined ? `${e.totalScore}/35 Marks` : `${e.q1Score}/7 Marks (Objective)`;
+          const descStr = e.descriptiveScore !== undefined ? ` [Obj: ${e.q1Score}M + Desc: ${e.descriptiveScore}M]` : '';
+          const statusStr = e.attemptStatus ? ` • <em>${e.attemptStatus}</em>` : '';
+          return `
+            <div style="background: var(--bg-main); border: 1.5px solid var(--border-color); padding: 10px 12px; border-radius: 6px; margin-bottom: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <strong style="color: var(--primary);">${e.paperTitle || 'Model Exam'}</strong>
+                <span class="badge badge-marks">${totalStr}</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">
+                ${descStr} Duration: ${e.minsTaken || 0} mins • Date: ${e.date}${statusStr}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    });
+
+    function exportBackup() {
+      const dataStr = StorageManager.exportAllDataJSON();
+      const blob = new Blob([dataStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `python_exam_master_backup_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importBackup(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const res = StorageManager.importDataJSON(evt.target.result);
+        if (res.success) {
+          alert('Progress restored successfully! Reloading...');
+          location.reload();
+        } else {
+          alert('Failed to import backup file: ' + res.error);
+        }
+      };
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>
+

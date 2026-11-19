@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Topic Question Practice - Python Exam Master</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <style>
+    .option-item {
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      background: var(--bg-card);
+      transition: all 0.15s ease;
+    }
+    .option-item:active {
+      background: var(--border-color);
+    }
+    .option-item.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      font-weight: 600;
+    }
+    .option-item.correct {
+      border-color: var(--success);
+      background: var(--success-bg);
+      color: var(--success);
+      font-weight: 700;
+    }
+    .option-item.wrong {
+      border-color: var(--danger);
+      background: var(--danger-bg);
+      color: var(--danger);
+      font-weight: 700;
+    }
+    .explanation-card {
+      background: #f8fafc;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin-top: 14px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="offline-banner" class="offline-banner">⚡ Offline Mode Active</div>
+
+  <header class="app-header">
+    <a href="index.html" class="header-brand">
+      <span>⬅️</span>
+      <span>Question Practice</span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle-btn" class="icon-btn">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Filter Bar -->
+    <div style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px; scrollbar-width: none;">
+      <button id="filter-all" class="btn btn-sm btn-primary" onclick="setPracticeFilter('all')">All (83)</button>
+      <button id="filter-u1" class="btn btn-sm btn-outline" onclick="setPracticeFilter('Unit-I')">Unit-I</button>
+      <button id="filter-u2" class="btn btn-sm btn-outline" onclick="setPracticeFilter('Unit-II')">Unit-II</button>
+      <button id="filter-output" class="btn btn-sm btn-outline" onclick="setPracticeFilter('PredictOutput')">Outputs</button>
+      <button id="filter-theory" class="btn btn-sm btn-outline" onclick="setPracticeFilter('Theory')">Theory & Defs</button>
+      <button id="filter-code" class="btn btn-sm btn-outline" onclick="setPracticeFilter('Code')">Coding & Debug</button>
+    </div>
+
+    <!-- Question Tracker Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.85rem; color: var(--text-muted);">
+      <span id="q-counter">Question 1 of ...</span>
+      <span id="score-counter">Score: 0 / 0</span>
+    </div>
+
+    <!-- Practice Question Card -->
+    <div class="card" id="practice-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span id="q-category-badge" class="badge badge-unit">MCQ</span>
+        <span id="q-level-badge" class="badge badge-marks">Level 1</span>
+      </div>
+
+      <!-- Question Text -->
+      <div id="q-text" style="font-size: 1.05rem; font-weight: 600; margin-bottom: 14px; line-height: 1.5; white-space: pre-line;">
+        Loading question...
+      </div>
+
+      <!-- Options Container (for MCQ / TrueFalse) -->
+      <div id="options-container"></div>
+
+      <!-- Freeform text input (for Predict Output / FillBlank) -->
+      <div id="text-input-container" style="display: none; margin-bottom: 12px;">
+        <input type="text" id="user-text-input" placeholder="Type your answer here..." 
+          style="width: 100%; padding: 12px; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.95rem; background: var(--bg-main); color: var(--text-main);">
+      </div>
+
+      <!-- Submit / Check Button -->
+      <button id="check-ans-btn" class="btn btn-primary" onclick="submitCurrentAnswer()">
+        Check Answer
+      </button>
+
+      <!-- Explanation & Answer Reveal -->
+      <div id="explanation-box" class="explanation-card">
+        <div id="feedback-header" style="font-weight: 700; margin-bottom: 6px;"></div>
+        <p style="font-size: 0.88rem; margin-bottom: 6px;">
+          <strong>Correct Answer:</strong> <span id="correct-ans-text" style="color: var(--success); font-family: Consolas, monospace;"></span>
+        </p>
+        <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.4;" id="explanation-text"></p>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div style="display: flex; gap: 10px; margin-top: 14px;">
+      <button id="prev-btn" class="btn btn-outline" style="flex: 1;" onclick="navigateQ(-1)">⬅️ Previous</button>
+      <button id="next-btn" class="btn btn-primary" style="flex: 1;" onclick="navigateQ(1)">Next ➡️</button>
+    </div>
+
+    <!-- Reset Progress Option -->
+    <div style="text-align: center; margin-top: 24px;">
+      <button class="btn btn-sm btn-outline" style="color: var(--danger); border-color: var(--danger);" onclick="resetQuestionsProgress()">
+        Reset Practice Scores
+      </button>
+    </div>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="notes.html" class="nav-item">
+      <span class="nav-icon">📖</span>
+      <span>Notes</span>
+    </a>
+    <a href="practice.html" class="nav-item active">
+      <span class="nav-icon">✍️</span>
+      <span>Practice</span>
+    </a>
+    <a href="exam.html" class="nav-item">
+      <span class="nav-icon">⏱️</span>
+      <span>Exam</span>
+    </a>
+    <a href="progress.html" class="nav-item">
+      <span class="nav-icon">📊</span>
+      <span>Progress</span>
+    </a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let allQuestions = [];
+    let filteredQuestions = [];
+    let currentIndex = 0;
+    let selectedOption = null;
+    let isAnswerSubmitted = false;
+    let currentFilter = 'all';
+
+    async function init() {
+      allQuestions = await loadJSON('data/questions.json') || [];
+      
+      const params = new URLSearchParams(window.location.search);
+      const unit = params.get('unit');
+      if (unit === 'unit-1') currentFilter = 'Unit-I';
+      else if (unit === 'unit-2') currentFilter = 'Unit-II';
+
+      applyFilter();
+    }
+
+    function setPracticeFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('#filter-all, #filter-u1, #filter-u2, #filter-output, #filter-theory, #filter-code').forEach(btn => {
+        btn.className = 'btn btn-sm btn-outline';
+      });
+      if (filter === 'all') document.getElementById('filter-all').className = 'btn btn-sm btn-primary';
+      if (filter === 'Unit-I') document.getElementById('filter-u1').className = 'btn btn-sm btn-primary';
+      if (filter === 'Unit-II') document.getElementById('filter-u2').className = 'btn btn-sm btn-primary';
+      if (filter === 'PredictOutput') document.getElementById('filter-output').className = 'btn btn-sm btn-primary';
+      if (filter === 'Theory') document.getElementById('filter-theory').className = 'btn btn-sm btn-primary';
+      if (filter === 'Code') document.getElementById('filter-code').className = 'btn btn-sm btn-primary';
+
+      applyFilter();
+    }
+
+    function applyFilter() {
+      if (currentFilter === 'all') {
+        filteredQuestions = [...allQuestions];
+      } else if (currentFilter === 'Unit-I' || currentFilter === 'Unit-II') {
+        filteredQuestions = allQuestions.filter(q => q.unit === currentFilter);
+      } else if (currentFilter === 'PredictOutput') {
+        filteredQuestions = allQuestions.filter(q => q.category === 'PredictOutput');
+      } else if (currentFilter === 'Theory') {
+        filteredQuestions = allQuestions.filter(q => ['Definition', 'ShortAnswer', 'Descriptive'].includes(q.category));
+      } else if (currentFilter === 'Code') {
+        filteredQuestions = allQuestions.filter(q => ['Debugging', 'CodingExercise'].includes(q.category));
+      }
+      currentIndex = 0;
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      if (filteredQuestions.length === 0) return;
+      const q = filteredQuestions[currentIndex];
+
+      document.getElementById('q-counter').textContent = `Question ${currentIndex + 1} of ${filteredQuestions.length}`;
+      document.getElementById('q-category-badge').textContent = q.category;
+      document.getElementById('q-level-badge').textContent = q.level;
+      document.getElementById('q-text').textContent = q.question;
+
+      const progress = StorageManager.getQuestionProgress();
+      document.getElementById('score-counter').textContent = `Correct: ${progress.correctCount} | Wrong: ${progress.wrongCount}`;
+
+      const optionsBox = document.getElementById('options-container');
+      const textBox = document.getElementById('text-input-container');
+      const inputEl = document.getElementById('user-text-input');
+      const explanationBox = document.getElementById('explanation-box');
+      const checkBtn = document.getElementById('check-ans-btn');
+
+      // Reset states
+      selectedOption = null;
+      isAnswerSubmitted = false;
+      explanationBox.style.display = 'none';
+      checkBtn.style.display = 'block';
+      checkBtn.textContent = 'Check Answer';
+
+      // Check if already attempted previously
+      const priorAttempt = progress.attempted[q.id];
+
+      if (q.options && q.options.length > 0) {
+        optionsBox.style.display = 'block';
+        textBox.style.display = 'none';
+
+        optionsBox.innerHTML = q.options.map(opt => `
+          <div class="option-item" onclick="selectOption(this, '${escapeQuotes(opt)}')">
+            <span style="font-family: monospace;">🔘</span>
+            <span>${escapeHtml(opt)}</span>
+          </div>
+        `).join('');
+
+        if (priorAttempt) {
+          showPriorAttempt(priorAttempt.selected, priorAttempt.isCorrect);
+        }
+      } else {
+        optionsBox.style.display = 'none';
+        textBox.style.display = 'block';
+        inputEl.value = priorAttempt ? priorAttempt.selected : '';
+        inputEl.disabled = false;
+
+        if (priorAttempt) {
+          showPriorAttempt(priorAttempt.selected, priorAttempt.isCorrect);
+        }
+      }
+
+      document.getElementById('prev-btn').disabled = currentIndex === 0;
+      document.getElementById('next-btn').disabled = currentIndex === filteredQuestions.length - 1;
+    }
+
+    function selectOption(el, optValue) {
+      if (isAnswerSubmitted) return;
+      document.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedOption = optValue;
+    }
+
+    function submitCurrentAnswer() {
+      if (isAnswerSubmitted) return;
+      const q = filteredQuestions[currentIndex];
+      let userAns = '';
+
+      if (q.options && q.options.length > 0) {
+        if (!selectedOption) {
+          alert('Please select an option first!');
+          return;
+        }
+        userAns = selectedOption;
+      } else {
+        const textVal = document.getElementById('user-text-input').value.trim();
+        if (!textVal) {
+          alert('Please type your answer!');
+          return;
+        }
+        userAns = textVal;
+      }
+
+      // Check correctness
+      const isCorrect = userAns.trim().toLowerCase() === q.correct.trim().toLowerCase();
+      StorageManager.saveQuestionAttempt(q.id, userAns, isCorrect);
+      showPriorAttempt(userAns, isCorrect);
+    }
+
+    function showPriorAttempt(userAns, isCorrect) {
+      isAnswerSubmitted = true;
+      const q = filteredQuestions[currentIndex];
+      const explanationBox = document.getElementById('explanation-box');
+      const feedbackHeader = document.getElementById('feedback-header');
+
+      if (q.options && q.options.length > 0) {
+        document.querySelectorAll('.option-item').forEach(item => {
+          const text = item.querySelector('span:nth-child(2)').textContent;
+          if (text.trim().toLowerCase() === q.correct.trim().toLowerCase()) {
+            item.classList.add('correct');
+          } else if (text.trim().toLowerCase() === userAns.trim().toLowerCase() && !isCorrect) {
+            item.classList.add('wrong');
+          }
+        });
+      } else {
+        document.getElementById('user-text-input').disabled = true;
+      }
+
+      feedbackHeader.innerHTML = isCorrect ? 
+        '<span style="color: var(--success);">🎉 Correct Answer! (+1 Mark)</span>' : 
+        '<span style="color: var(--danger);">❌ Incorrect Answer. Review explanation:</span>';
+
+      document.getElementById('correct-ans-text').textContent = q.correct;
+      document.getElementById('explanation-text').textContent = q.explanation;
+      explanationBox.style.display = 'block';
+
+      // Update score display
+      const progress = StorageManager.getQuestionProgress();
+      document.getElementById('score-counter').textContent = `Correct: ${progress.correctCount} | Wrong: ${progress.wrongCount}`;
+    }
+
+    function navigateQ(dir) {
+      const nextIdx = currentIndex + dir;
+      if (nextIdx >= 0 && nextIdx < filteredQuestions.length) {
+        currentIndex = nextIdx;
+        renderQuestion();
+      }
+    }
+
+    function resetQuestionsProgress() {
+      if (confirm('Are you sure you want to reset all question practice scores?')) {
+        localStorage.removeItem('pem_question_progress');
+        renderQuestion();
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function escapeQuotes(text) {
+      if (!text) return '';
+      return text.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+

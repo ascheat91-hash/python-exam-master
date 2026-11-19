@@ -1,0 +1,145 @@
+Microsoft Windows [Version 10.0.19045.5247]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Admin>cd /d "%USERPROFILE%\Desktop\Python 0" && (echo === FOLDER TREE === & tree /F /A & echo. & echo === FULL FILE DETAILS === & dir /S) > folder_details.txt && notepad folder_details.txt
+
+C:\Users\Admin\Desktop\Python 0>
+
+
+
+
+=== FOLDER TREE === 
+Folder PATH listing for volume Windows X-Lite
+Volume serial number is 76E6-EECA
+C:.
+|   audit_project.py
+|   check_papers.py
+|   exam.html
+|   folder_details.txt
+|   generate_full_model_papers.py
+|   generate_icons.py
+|   generate_icons_pure.py
+|   generate_notes_u1.py
+|   generate_notes_u2.py
+|   generate_papers.py
+|   generate_programs.py
+|   generate_questions.py
+|   generate_revision.py
+|   index.html
+|   manifest.json
+|   model-papers.html
+|   notes.html
+|   practice.html
+|   programs.html
+|   progress.html
+|   README.md
+|   revision.html
+|   supplement_questions.py
+|   sw.js
+|   topic.html
+|   verify_links.py
+|   
++---assets
+|       icon-192.png
+|       icon-512.png
+|       
++---css
+|       exam.css
+|       main.css
+|       mobile.css
+|       notes.css
+|       
++---data
+|       model-papers.json
+|       notes.json
+|       programs.json
+|       questions.json
+|       revision.json
+|       syllabus.json
+|       
+\---js
+        app.js
+        storage.js
+        
+ 
+=== FULL FILE DETAILS === 
+ Volume in drive C is Windows X-Lite
+ Volume Serial Number is 76E6-EECA
+
+ Directory of C:\Users\Admin\Desktop\Python 0
+
+11/19/2026  09:13 PM    <DIR>          .
+11/19/2026  09:13 PM    <DIR>          ..
+11/19/2026  08:40 PM    <DIR>          assets
+11/19/2026  09:04 PM             2,408 audit_project.py
+11/19/2026  09:04 PM               378 check_papers.py
+11/19/2026  08:33 PM    <DIR>          css
+11/19/2026  08:29 PM    <DIR>          data
+11/19/2026  09:04 PM            26,920 exam.html
+11/19/2026  09:13 PM                22 folder_details.txt
+11/19/2026  09:04 PM            39,346 generate_full_model_papers.py
+11/19/2026  08:43 PM               707 generate_icons.py
+11/19/2026  08:43 PM             1,032 generate_icons_pure.py
+11/19/2026  08:43 PM            59,883 generate_notes_u1.py
+11/19/2026  08:43 PM            76,349 generate_notes_u2.py
+11/19/2026  08:43 PM            30,668 generate_papers.py
+11/19/2026  08:43 PM            20,892 generate_programs.py
+11/19/2026  08:43 PM            17,582 generate_questions.py
+11/19/2026  08:43 PM             5,152 generate_revision.py
+11/19/2026  08:43 PM             8,473 index.html
+11/19/2026  08:33 PM    <DIR>          js
+11/19/2026  08:43 PM               521 manifest.json
+11/19/2026  08:43 PM             5,476 model-papers.html
+11/19/2026  08:43 PM             6,145 notes.html
+11/19/2026  08:43 PM            13,325 practice.html
+11/19/2026  08:43 PM             9,170 programs.html
+11/19/2026  08:43 PM             8,526 progress.html
+11/19/2026  08:42 PM             3,500 README.md
+11/19/2026  08:43 PM             5,088 revision.html
+11/19/2026  09:04 PM             2,956 supplement_questions.py
+11/19/2026  08:43 PM             1,782 sw.js
+11/19/2026  08:43 PM            15,053 topic.html
+11/19/2026  09:04 PM               981 verify_links.py
+              26 File(s)        362,335 bytes
+
+ Directory of C:\Users\Admin\Desktop\Python 0\assets
+
+11/19/2026  08:40 PM    <DIR>          .
+11/19/2026  08:40 PM    <DIR>          ..
+11/19/2026  08:40 PM               413 icon-192.png
+11/19/2026  08:40 PM             1,496 icon-512.png
+               2 File(s)          1,909 bytes
+
+ Directory of C:\Users\Admin\Desktop\Python 0\css
+
+11/19/2026  08:33 PM    <DIR>          .
+11/19/2026  08:33 PM    <DIR>          ..
+11/19/2026  08:43 PM             3,557 exam.css
+11/19/2026  08:43 PM             7,883 main.css
+11/19/2026  08:43 PM               595 mobile.css
+11/19/2026  08:43 PM             2,185 notes.css
+               4 File(s)         14,220 bytes
+
+ Directory of C:\Users\Admin\Desktop\Python 0\data
+
+11/19/2026  08:29 PM    <DIR>          .
+11/19/2026  08:29 PM    <DIR>          ..
+11/19/2026  08:57 PM            59,028 model-papers.json
+11/19/2026  08:24 PM           140,688 notes.json
+11/19/2026  08:26 PM            20,665 programs.json
+11/19/2026  08:59 PM            30,402 questions.json
+11/19/2026  08:29 PM             5,565 revision.json
+11/19/2026  08:43 PM             4,476 syllabus.json
+               6 File(s)        260,824 bytes
+
+ Directory of C:\Users\Admin\Desktop\Python 0\js
+
+11/19/2026  08:33 PM    <DIR>          .
+11/19/2026  08:33 PM    <DIR>          ..
+11/19/2026  08:43 PM             2,166 app.js
+11/19/2026  08:43 PM             4,003 storage.js
+               2 File(s)          6,169 bytes
+
+     Total Files Listed:
+              40 File(s)        645,457 bytes
+              14 Dir(s)  282,234,531,840 bytes free

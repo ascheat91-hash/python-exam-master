@@ -1,0 +1,36 @@
+/* Mobile & Responsive Polish */
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14.5px;
+  }
+
+  .container {
+    padding: 10px 12px;
+  }
+
+  .college-title {
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    padding: 11px 14px;
+    font-size: 0.9rem;
+  }
+
+  .code-block {
+    font-size: 0.82rem;
+    padding: 10px 12px;
+  }
+}
+
+/* Ensure comfortable touch targets */
+button, input[type="button"], input[type="submit"], a {
+  min-height: 40px;
+}
+
+/* Prevent unwanted double-tap zoom on buttons on Android Chrome */
+button, .btn, .palette-btn, .exam-option, .nav-item {
+  touch-action: manipulation;
+}
+

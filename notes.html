@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Python Study Notes - Syllabus Directory</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/notes.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+  <div id="offline-banner" class="offline-banner">⚡ Offline Mode Active</div>
+
+  <header class="app-header">
+    <a href="index.html" class="header-brand">
+      <span>⬅️</span>
+      <span>Syllabus Notes</span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle-btn" class="icon-btn">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Unit Selector Pills -->
+    <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+      <button id="filter-all" class="btn btn-sm btn-primary" onclick="filterUnit('all')">All Topics</button>
+      <button id="filter-u1" class="btn btn-sm btn-outline" onclick="filterUnit('Unit-I')">Unit-I (14)</button>
+      <button id="filter-u2" class="btn btn-sm btn-outline" onclick="filterUnit('Unit-II')">Unit-II (17)</button>
+    </div>
+
+    <!-- Search box -->
+    <div style="margin-bottom: 14px;">
+      <input type="text" id="topic-search" placeholder="🔍 Search topic or keyword (e.g. while, list, slicing)..." 
+        style="width: 100%; padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.9rem; background: var(--bg-card); color: var(--text-main);">
+    </div>
+
+    <!-- Topics List Container -->
+    <div id="topics-list-container">
+      <div style="text-align: center; padding: 30px; color: var(--text-muted);">
+        Loading syllabus notes...
+      </div>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="notes.html" class="nav-item active">
+      <span class="nav-icon">📖</span>
+      <span>Notes</span>
+    </a>
+    <a href="practice.html" class="nav-item">
+      <span class="nav-icon">✍️</span>
+      <span>Practice</span>
+    </a>
+    <a href="exam.html" class="nav-item">
+      <span class="nav-icon">⏱️</span>
+      <span>Exam</span>
+    </a>
+    <a href="progress.html" class="nav-item">
+      <span class="nav-icon">📊</span>
+      <span>Progress</span>
+    </a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let allNotes = [];
+    let currentFilter = 'all';
+
+    async function init() {
+      allNotes = await loadJSON('data/notes.json') || [];
+      
+      // Check URL query parameters
+      const params = new URLSearchParams(window.location.search);
+      const unitParam = params.get('unit');
+      if (unitParam === 'unit-1') currentFilter = 'Unit-I';
+      else if (unitParam === 'unit-2') currentFilter = 'Unit-II';
+      
+      updateFilterButtons();
+      renderTopics();
+
+      document.getElementById('topic-search').addEventListener('input', (e) => {
+        renderTopics(e.target.value.toLowerCase());
+      });
+    }
+
+    function filterUnit(unit) {
+      currentFilter = unit;
+      updateFilterButtons();
+      renderTopics();
+    }
+
+    function updateFilterButtons() {
+      document.getElementById('filter-all').className = currentFilter === 'all' ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-outline';
+      document.getElementById('filter-u1').className = currentFilter === 'Unit-I' ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-outline';
+      document.getElementById('filter-u2').className = currentFilter === 'Unit-II' ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-outline';
+    }
+
+    function renderTopics(searchTerm = '') {
+      const container = document.getElementById('topics-list-container');
+      const completedTopics = StorageManager.getCompletedTopics();
+
+      let filtered = allNotes.filter(item => {
+        const matchesUnit = currentFilter === 'all' || item.unit === currentFilter;
+        const matchesSearch = !searchTerm || item.title.toLowerCase().includes(searchTerm) || item.partA_intro.toLowerCase().includes(searchTerm);
+        return matchesUnit && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-muted);">No topics found matching your query.</div>`;
+        return;
+      }
+
+      let html = '';
+      let lastChapter = '';
+
+      filtered.forEach((topic, idx) => {
+        if (topic.chapter !== lastChapter) {
+          lastChapter = topic.chapter;
+          html += `<div style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin: 16px 0 8px 4px; letter-spacing: 0.5px;">${lastChapter}</div>`;
+        }
+
+        const isDone = completedTopics.includes(topic.id);
+
+        html += `
+          <a href="topic.html?id=${topic.id}" class="card" style="text-decoration: none; color: inherit; display: block; padding: 14px; margin-bottom: 8px; border-left: 4px solid ${isDone ? 'var(--success)' : 'var(--primary)'};">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+              <span class="badge ${topic.unit === 'Unit-I' ? 'badge-unit' : 'badge-marks'}">${topic.unit}</span>
+              ${isDone ? '<span class="badge badge-success">✓ Completed</span>' : '<span style="font-size: 0.75rem; color: var(--text-muted);">Pending</span>'}
+            </div>
+            <strong style="font-size: 0.96rem; color: var(--text-main); display: block; margin-bottom: 4px;">
+              ${topic.title}
+            </strong>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+              ${topic.partD_examDef}
+            </p>
+          </a>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+

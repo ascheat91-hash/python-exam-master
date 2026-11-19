@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Python Programs Practice - Smartphone & Notebook</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+  <div id="offline-banner" class="offline-banner">⚡ Offline Mode Active</div>
+
+  <header class="app-header">
+    <a href="index.html" class="header-brand">
+      <span>⬅️</span>
+      <span>Program Practice</span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle-btn" class="icon-btn">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Notebook Practice Banner -->
+    <div class="card" style="background: #fefce8; border: 1.5px solid #fef08a; padding: 14px; margin-bottom: 14px;">
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <span style="font-size: 1.6rem;">📝</span>
+        <div>
+          <strong style="color: #854d0e; font-size: 0.95rem;">Handwritten Practice Instruction:</strong>
+          <p style="font-size: 0.84rem; color: #713f12; margin-top: 3px; line-height: 1.4;">
+            "Is program ko pehle apni <strong>notebook mein pen se likhein</strong>, ya neeche diye gaye box mein type karein, phir 'Show Model Solution' daba kar compare karein."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Program Selector Pills -->
+    <div id="program-selector" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 14px;"></div>
+
+    <!-- Active Program Container -->
+    <div id="program-display-target">
+      <div style="text-align: center; padding: 30px; color: var(--text-muted);">
+        Loading programs...
+      </div>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="notes.html" class="nav-item">
+      <span class="nav-icon">📖</span>
+      <span>Notes</span>
+    </a>
+    <a href="practice.html" class="nav-item">
+      <span class="nav-icon">✍️</span>
+      <span>Practice</span>
+    </a>
+    <a href="exam.html" class="nav-item">
+      <span class="nav-icon">⏱️</span>
+      <span>Exam</span>
+    </a>
+    <a href="progress.html" class="nav-item">
+      <span class="nav-icon">📊</span>
+      <span>Progress</span>
+    </a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let allPrograms = [];
+    let currentProgIndex = 0;
+
+    async function init() {
+      allPrograms = await loadJSON('data/programs.json') || [];
+      renderSelector();
+      renderProgram();
+    }
+
+    function renderSelector() {
+      const container = document.getElementById('program-selector');
+      container.innerHTML = allPrograms.map((p, i) => `
+        <button class="btn btn-sm ${i === currentProgIndex ? 'btn-primary' : 'btn-outline'}" 
+          style="white-space: nowrap;" onclick="switchProgram(${i})">
+          Prog ${i + 1}
+        </button>
+      `).join('');
+    }
+
+    function switchProgram(index) {
+      currentProgIndex = index;
+      renderSelector();
+      renderProgram();
+    }
+
+    function renderProgram() {
+      const p = allPrograms[currentProgIndex];
+      const target = document.getElementById('program-display-target');
+
+      target.innerHTML = `
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span class="badge ${p.unit === 'Unit-I' ? 'badge-unit' : 'badge-marks'}">${p.unit}</span>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">${p.chapter}</span>
+          </div>
+          <h2 style="font-size: 1.15rem; color: var(--primary); margin-bottom: 8px;">${p.title}</h2>
+          
+          <div style="background: var(--bg-main); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 12px;">
+            <strong style="color: var(--text-main); font-size: 0.88rem;">Problem Statement:</strong>
+            <p style="font-size: 0.86rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4;">${p.problem}</p>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <strong style="font-size: 0.88rem; color: #0284c7;">🗣️ Simple Hinglish Explanation:</strong>
+            <p style="font-size: 0.85rem; color: var(--text-main); margin-top: 4px; line-height: 1.4;">${p.hinglish}</p>
+          </div>
+
+          <!-- Step-by-Step Algorithm -->
+          <div style="margin-bottom: 14px;">
+            <strong style="font-size: 0.88rem; color: var(--primary);">📋 Step-by-Step Algorithm:</strong>
+            <ol style="padding-left: 20px; font-size: 0.84rem; margin-top: 6px; line-height: 1.45;">
+              ${p.algorithm.map(step => `<li style="margin-bottom: 4px;">${step}</li>`).join('')}
+            </ol>
+          </div>
+
+          <!-- Student Scratchpad / Mobile Typing Box -->
+          <div style="margin-bottom: 14px;">
+            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px;">
+              📱 Type your code practice here (or in your physical notebook):
+            </label>
+            <textarea id="student-code-pad" placeholder="# Write your Python program here...\ndef / if / while..." 
+              style="width: 100%; min-height: 130px; padding: 12px; font-family: Consolas, monospace; font-size: 0.86rem; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); background: var(--bg-main); color: var(--text-main);"></textarea>
+          </div>
+
+          <button id="toggle-solution-btn" class="btn btn-primary" onclick="toggleSolution()">
+            🔍 Show Model Code Solution & Dry Run
+          </button>
+
+          <!-- Model Solution Drawer -->
+          <div id="solution-drawer" style="display: none; margin-top: 16px;">
+            <div style="border-top: 2px dashed var(--border-color); padding-top: 14px;">
+              <strong style="color: var(--success); font-size: 0.95rem;">✅ Model Python Code:</strong>
+              <div class="code-block"><pre>${escapeHtml(p.code)}</pre></div>
+
+              <strong style="font-size: 0.9rem; color: var(--primary); display: block; margin-top: 12px;">🔍 Line-by-Line Code Explanation:</strong>
+              <ul style="padding-left: 18px; font-size: 0.85rem; margin-top: 6px; line-height: 1.4;">
+                ${p.lineByLine.map(line => `<li style="margin-bottom: 4px;">${line}</li>`).join('')}
+              </ul>
+
+              <strong style="font-size: 0.9rem; color: var(--primary); display: block; margin-top: 12px;">📊 Complete Dry Run:</strong>
+              <div class="table-wrapper">
+                <table class="dry-run-table">
+                  <thead><tr><th>Step</th><th>Action / Condition</th><th>Variable State</th></tr></thead>
+                  <tbody>
+                    ${p.dryRun.map(row => `<tr><td>${row.step}</td><td>${row.action}</td><td><strong>${row.state}</strong></td></tr>`).join('')}
+                  </tbody>
+                </table>
+              </div>
+
+              <strong style="font-size: 0.9rem; color: var(--primary); display: block; margin-top: 12px;">🖥️ Expected Output:</strong>
+              <div class="code-block" style="border-left: 4px solid var(--success);"><pre>${escapeHtml(p.expectedOutput)}</pre></div>
+
+              <div style="background: var(--danger-bg); border-left: 4px solid var(--danger); padding: 10px 12px; border-radius: 4px; margin-top: 12px;">
+                <strong style="color: var(--danger); font-size: 0.85rem;">⚠️ Common Mistakes:</strong>
+                <ul style="padding-left: 18px; font-size: 0.82rem; color: var(--danger); margin-top: 4px;">
+                  ${p.commonMistakes.map(m => `<li>${m}</li>`).join('')}
+                </ul>
+              </div>
+
+              <div style="background: var(--bg-main); padding: 10px 12px; border-radius: 4px; border: 1px solid var(--border-color); margin-top: 12px; font-size: 0.85rem;">
+                <strong style="color: var(--primary);">Exam Weightage & Question:</strong>
+                <p style="margin-top: 4px; color: var(--text-muted);">${p.examQuestions}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleSolution() {
+      const drawer = document.getElementById('solution-drawer');
+      const btn = document.getElementById('toggle-solution-btn');
+      if (drawer.style.display === 'none') {
+        drawer.style.display = 'block';
+        btn.textContent = 'Hide Model Solution';
+      } else {
+        drawer.style.display = 'none';
+        btn.textContent = '🔍 Show Model Code Solution & Dry Run';
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+

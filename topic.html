@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Topic Details - Python Notes</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/notes.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+  <div id="offline-banner" class="offline-banner">⚡ Offline Mode Active</div>
+
+  <header class="app-header">
+    <a href="notes.html" class="header-brand">
+      <span>⬅️</span>
+      <span>Back to Notes</span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle-btn" class="icon-btn">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- View Mode Switcher -->
+    <div class="mode-toggle-bar">
+      <button id="mode-study-btn" class="mode-tab active" onclick="switchViewMode('study')">
+        📖 Beginner Hinglish Study
+      </button>
+      <button id="mode-exam-btn" class="mode-tab" onclick="switchViewMode('exam')">
+        🎓 College Exam Format
+      </button>
+    </div>
+
+    <!-- Topic Content Target -->
+    <div id="topic-content-wrapper">
+      <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+        Loading topic notes...
+      </div>
+    </div>
+
+    <!-- Completion Button -->
+    <div class="complete-btn-container">
+      <button id="complete-toggle-btn" class="btn btn-outline" onclick="toggleCompletion()">
+        Mark Topic as Completed
+      </button>
+    </div>
+
+    <!-- Prev / Next Navigation -->
+    <div class="topic-nav">
+      <button id="prev-topic-btn" class="btn btn-outline btn-sm" onclick="navigateTopic(-1)">⬅️ Previous</button>
+      <button id="next-topic-btn" class="btn btn-primary btn-sm" onclick="navigateTopic(1)">Next Topic ➡️</button>
+    </div>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="notes.html" class="nav-item active">
+      <span class="nav-icon">📖</span>
+      <span>Notes</span>
+    </a>
+    <a href="practice.html" class="nav-item">
+      <span class="nav-icon">✍️</span>
+      <span>Practice</span>
+    </a>
+    <a href="exam.html" class="nav-item">
+      <span class="nav-icon">⏱️</span>
+      <span>Exam</span>
+    </a>
+    <a href="progress.html" class="nav-item">
+      <span class="nav-icon">📊</span>
+      <span>Progress</span>
+    </a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let allNotes = [];
+    let currentTopicIndex = -1;
+    let currentViewMode = 'study'; // 'study' or 'exam'
+
+    async function init() {
+      allNotes = await loadJSON('data/notes.json') || [];
+      const params = new URLSearchParams(window.location.search);
+      const topicId = params.get('id') || 'u1-t1';
+
+      currentTopicIndex = allNotes.findIndex(t => t.id === topicId);
+      if (currentTopicIndex === -1) currentTopicIndex = 0;
+
+      renderCurrentTopic();
+    }
+
+    function switchViewMode(mode) {
+      currentViewMode = mode;
+      document.getElementById('mode-study-btn').className = mode === 'study' ? 'mode-tab active' : 'mode-tab';
+      document.getElementById('mode-exam-btn').className = mode === 'exam' ? 'mode-tab active' : 'mode-tab';
+      renderCurrentTopic();
+    }
+
+    function renderCurrentTopic() {
+      const topic = allNotes[currentTopicIndex];
+      if (!topic) return;
+
+      const isCompleted = StorageManager.isTopicCompleted(topic.id);
+      const completeBtn = document.getElementById('complete-toggle-btn');
+      if (isCompleted) {
+        completeBtn.textContent = '✓ Completed (Click to Unmark)';
+        completeBtn.className = 'btn btn-outline';
+        completeBtn.style.color = 'var(--success)';
+        completeBtn.style.borderColor = 'var(--success)';
+      } else {
+        completeBtn.textContent = 'Mark Topic as Completed';
+        completeBtn.className = 'btn btn-outline';
+        completeBtn.style.color = '';
+        completeBtn.style.borderColor = '';
+      }
+
+      // Prev / Next button states
+      document.getElementById('prev-topic-btn').disabled = currentTopicIndex === 0;
+      document.getElementById('next-topic-btn').disabled = currentTopicIndex === allNotes.length - 1;
+
+      const container = document.getElementById('topic-content-wrapper');
+
+      if (currentViewMode === 'study') {
+        // Full 13-Part Pedagogical Format
+        container.innerHTML = `
+          <div class="notes-header">
+            <span class="badge ${topic.unit === 'Unit-I' ? 'badge-unit' : 'badge-marks'}">${topic.unit}</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted); margin-left: 6px;">${topic.chapter}</span>
+            <h1 class="topic-title">${topic.title}</h1>
+          </div>
+
+          <!-- PART A: Basic Introduction -->
+          <div class="note-section">
+            <div class="section-header"><span>📌 PART A: Basic Introduction</span></div>
+            <div class="section-body">${topic.partA_intro}</div>
+          </div>
+
+          <!-- PART B: Real-Life Analogy -->
+          <div class="note-section part-analogy">
+            <div class="section-header"><span>💡 PART B: Real-Life Analogy</span></div>
+            <div class="section-body">${topic.partB_realLife}</div>
+          </div>
+
+          <!-- PART C: Simple Hinglish Explanation -->
+          <div class="note-section part-hinglish">
+            <div class="section-header"><span>🗣️ PART C: Simple Hinglish Explanation</span></div>
+            <div class="section-body">${topic.partC_hinglish}</div>
+          </div>
+
+          <!-- PART D: College Exam Definition -->
+          <div class="note-section part-exam-def">
+            <div class="section-header"><span>✍️ PART D: College Exam Definition (Direct Writing)</span></div>
+            <div class="section-body"><strong>${topic.partD_examDef}</strong></div>
+          </div>
+
+          <!-- PART E: Important Points -->
+          <div class="note-section">
+            <div class="section-header"><span>⭐ PART E: Important Points & Rules</span></div>
+            <div class="section-body">
+              <ul style="padding-left: 18px;">
+                ${topic.partE_points.map(pt => `<li style="margin-bottom: 6px;">${pt}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <!-- PART F: Syntax -->
+          <div class="note-section">
+            <div class="section-header"><span>⚙️ PART F: Python Syntax</span></div>
+            <div class="section-body">
+              <div class="code-block"><pre>${escapeHtml(topic.partF_syntax)}</pre></div>
+            </div>
+          </div>
+
+          <!-- PART G: Python Example -->
+          <div class="note-section">
+            <div class="section-header"><span>💻 PART G: Python Example Program</span></div>
+            <div class="section-body">
+              <div class="code-block"><pre>${escapeHtml(topic.partG_example)}</pre></div>
+            </div>
+          </div>
+
+          <!-- PART H: Line-by-Line Explanation -->
+          <div class="note-section">
+            <div class="section-header"><span>🔍 PART H: Line-by-Line Explanation</span></div>
+            <div class="section-body">
+              <ul style="padding-left: 18px;">
+                ${topic.partH_lineByLine.map(line => `<li style="margin-bottom: 6px;">${line}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <!-- PART I: Dry Run Table -->
+          <div class="note-section">
+            <div class="section-header"><span>📊 PART I: Dry Run Table (Trace Table)</span></div>
+            <div class="section-body">
+              <div class="table-wrapper">
+                <table class="dry-run-table">
+                  <thead>
+                    <tr><th>Step</th><th>Statement</th><th>State / Action</th><th>Value</th></tr>
+                  </thead>
+                  <tbody>
+                    ${topic.partI_dryRun.map(row => `
+                      <tr>
+                        <td>${row.step}</td>
+                        <td><code>${escapeHtml(row.statement)}</code></td>
+                        <td>${row.action}</td>
+                        <td><strong>${escapeHtml(String(row.value))}</strong></td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- PART J: Expected Output -->
+          <div class="note-section">
+            <div class="section-header"><span>🖥️ PART J: Expected Output</span></div>
+            <div class="section-body">
+              <div class="code-block" style="background: #0f172a; border-left: 4px solid var(--success);"><pre>${escapeHtml(topic.partJ_output)}</pre></div>
+            </div>
+          </div>
+
+          <!-- PART K: Common Beginner Mistakes -->
+          <div class="note-section part-mistakes">
+            <div class="section-header"><span>⚠️ PART K: Common Mistakes to Avoid in Exam</span></div>
+            <div class="section-body">
+              <ul style="padding-left: 18px; color: var(--danger);">
+                ${topic.partK_mistakes.map(m => `<li style="margin-bottom: 6px;">${m}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <!-- PART L: Exam Preparation -->
+          <div class="note-section part-14mark">
+            <div class="section-header"><span>📝 PART L: College Exam Preparation Questions</span></div>
+            <div class="section-body">
+              <strong style="color: var(--primary);">1-Mark Objective Questions:</strong>
+              ${topic.partL_examPrep.oneMark.map(om => `
+                <div style="background: var(--bg-main); padding: 8px 10px; border-radius: 6px; margin: 6px 0; font-size: 0.85rem;">
+                  <strong>Q:</strong> ${om.q}<br>
+                  <strong style="color: var(--success);">Ans:</strong> ${om.a}
+                </div>
+              `).join('')}
+              <div style="margin-top: 10px;">
+                <strong style="color: var(--primary);">Short-Answer Question:</strong>
+                <p style="white-space: pre-line; font-size: 0.85rem; margin-top: 4px;">${topic.partL_examPrep.shortAnswer}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- PART M: Quick Revision -->
+          <div class="note-section">
+            <div class="section-header"><span>⚡ PART M: 30-Second Quick Revision</span></div>
+            <div class="section-body" style="background: var(--accent-light); color: #92400e; font-weight: 600;">
+              ${topic.partM_revision}
+            </div>
+          </div>
+        `;
+      } else {
+        // Exam-Ready Answer Writing Mode (14-Mark Formatted Model Answer)
+        container.innerHTML = `
+          <div class="notes-header">
+            <span class="badge badge-marks">14-MARK EXAM MODEL ANSWER</span>
+            <h1 class="topic-title">${topic.title}</h1>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+              Model university answer formatted according to official evaluation criteria.
+            </p>
+          </div>
+
+          <div class="card" style="border-left: 4px solid var(--accent);">
+            <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent); margin-bottom: 6px;">SUGGESTED EXAM MARKS DISTRIBUTION (14 MARKS)</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">
+              • Definition & Introduction: 2 Marks<br>
+              • Detailed Characteristics & Rules: 4 Marks<br>
+              • Python Syntax & Working Program: 4 Marks<br>
+              • Dry Run / Trace Table & Expected Output: 3 Marks<br>
+              • Common Errors / Conclusion: 1 Mark
+            </p>
+          </div>
+
+          <!-- 1. Definition -->
+          <div class="note-section">
+            <div class="section-header"><span>1. Technical Definition</span></div>
+            <div class="section-body">
+              <p><strong>Definition:</strong> ${topic.partD_examDef}</p>
+              <p style="margin-top: 8px;">${topic.partA_intro}</p>
+            </div>
+          </div>
+
+          <!-- 2. Characteristics & Rules -->
+          <div class="note-section">
+            <div class="section-header"><span>2. Important Characteristics & Operating Rules</span></div>
+            <div class="section-body">
+              <ul style="padding-left: 18px;">
+                ${topic.partE_points.map(pt => `<li style="margin-bottom: 6px;">${pt}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <!-- 3. Syntax & Program -->
+          <div class="note-section">
+            <div class="section-header"><span>3. Syntax & Complete Python Program</span></div>
+            <div class="section-body">
+              <strong>Syntax:</strong>
+              <div class="code-block"><pre>${escapeHtml(topic.partF_syntax)}</pre></div>
+              <strong>Program Implementation:</strong>
+              <div class="code-block"><pre>${escapeHtml(topic.partG_example)}</pre></div>
+            </div>
+          </div>
+
+          <!-- 4. Dry Run & Output -->
+          <div class="note-section">
+            <div class="section-header"><span>4. Execution Dry Run & Program Output</span></div>
+            <div class="section-body">
+              <div class="table-wrapper">
+                <table class="dry-run-table">
+                  <thead><tr><th>Step</th><th>Statement</th><th>Action</th><th>Value</th></tr></thead>
+                  <tbody>
+                    ${topic.partI_dryRun.map(r => `<tr><td>${r.step}</td><td><code>${escapeHtml(r.statement)}</code></td><td>${r.action}</td><td><strong>${escapeHtml(String(r.value))}</strong></td></tr>`).join('')}
+                  </tbody>
+                </table>
+              </div>
+              <div class="code-block" style="border-left: 4px solid var(--success);"><pre>${escapeHtml(topic.partJ_output)}</pre></div>
+            </div>
+          </div>
+        `;
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+    function toggleCompletion() {
+      const topic = allNotes[currentTopicIndex];
+      StorageManager.toggleTopicCompleted(topic.id);
+      renderCurrentTopic();
+    }
+
+    function navigateTopic(direction) {
+      const newIndex = currentTopicIndex + direction;
+      if (newIndex >= 0 && newIndex < allNotes.length) {
+        currentTopicIndex = newIndex;
+        // Update URL
+        const newUrl = `${window.location.pathname}?id=${allNotes[newIndex].id}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+        renderCurrentTopic();
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+

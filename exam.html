@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Real College Examination Simulator (35 Marks - 3 Hours)</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/exam.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+  <div id="offline-banner" class="offline-banner">⚡ Offline Mode Active</div>
+
+  <header class="app-header">
+    <a href="index.html" class="header-brand">
+      <span>⬅️</span>
+      <span>College Exam Simulator</span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle-btn" class="icon-btn">🌙</button>
+    </div>
+  </header>
+
+  <!-- Persistent Exam Timer Bar during test -->
+  <div id="exam-timer-bar" class="exam-banner-fixed" style="display: none;">
+    <div>
+      <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85;">Time Remaining</span>
+      <div id="timer-display" class="exam-timer">03:00:00</div>
+    </div>
+    <div>
+      <button class="btn btn-sm btn-accent" onclick="confirmSubmitExam()">Submit Paper</button>
+    </div>
+  </div>
+
+  <main class="container">
+
+    <!-- SCREEN 1: EXAM INSTRUCTIONS & START SCREEN -->
+    <div id="exam-start-screen">
+      <div class="college-banner">
+        <span class="college-badge">EXTERNAL SEMESTER EXAMINATION</span>
+        <h1 class="college-title">Python Programming</h1>
+        <p class="college-details">
+          <strong>Course Code:</strong> BSC/BA/CSE/MD/5/DSC/301<br>
+          <strong>Semester:</strong> Semester V &nbsp;|&nbsp; <strong>Duration:</strong> 3 Hours (180 Minutes)<br>
+          <strong>Maximum Marks:</strong> 35 Marks
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title" style="margin-bottom: 10px;">📋 Examination Instructions</h3>
+        <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.5; color: var(--text-muted); margin-bottom: 16px;">
+          <li>Total <strong>5 Questions</strong> in the question paper.</li>
+          <li><strong>Question 1 is COMPULSORY (7 Marks)</strong>: Contains 7 objective/short questions of 1 mark each covering both Unit-I and Unit-II.</li>
+          <li><strong>UNIT-I (14 Marks)</strong>: Attempt <strong>ANY ONE</strong> between Question 2 OR Question 3.</li>
+          <li><strong>UNIT-II (14 Marks)</strong>: Attempt <strong>ANY ONE</strong> between Question 4 OR Question 5.</li>
+          <li>Total Examination Time: <strong>180 Minutes (3.0 Hours)</strong>. A visible countdown timer will track your time.</li>
+          <li>You can write your answers on your smartphone screen, or choose the <strong>Physical Notebook Option</strong> and self-evaluate against the model answer key.</li>
+        </ul>
+
+        <div style="margin-bottom: 16px;">
+          <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 6px;">Select Model Paper for Simulation:</label>
+          <select id="model-paper-select" style="width: 100%; padding: 12px; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.92rem; background: var(--bg-card); color: var(--text-main);">
+            <option value="model-1">Model Paper 1 (Pattern Standard)</option>
+            <option value="model-2">Model Paper 2 (Pattern Standard)</option>
+            <option value="model-3">Model Paper 3 (Pattern Standard)</option>
+            <option value="model-4">Model Paper 4 (Pattern Standard)</option>
+            <option value="model-5">Model Paper 5 (Pattern Standard)</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" onclick="startExamination()">
+          🚀 Start 3-Hour Examination
+        </button>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: ACTIVE QUESTION PAPER & WRITING INTERFACE -->
+    <div id="exam-active-screen" style="display: none;">
+      
+      <!-- Horizontal Jump Palette -->
+      <div class="question-palette" id="question-palette-container"></div>
+
+      <!-- Question Content Target -->
+      <div id="active-question-wrapper"></div>
+
+      <!-- Prev / Next Navigation -->
+      <div style="display: flex; gap: 10px; margin-top: 14px; margin-bottom: 24px;">
+        <button id="exam-prev-btn" class="btn btn-outline" style="flex: 1;" onclick="examNavigate(-1)">⬅️ Previous</button>
+        <button id="exam-next-btn" class="btn btn-primary" style="flex: 1;" onclick="examNavigate(1)">Next Question ➡️</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: EXAM EVALUATION & RESULTS -->
+    <div id="exam-result-screen" style="display: none;">
+      <div class="result-card">
+        <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff;">EXAMINATION RESULT</span>
+        <div class="result-score" id="res-total-score">0 / 35</div>
+        <p id="res-verdict" style="font-weight: 600; font-size: 1.1rem; color: #fef08a;">Result Pending Evaluation</p>
+        <p style="font-size: 0.82rem; opacity: 0.9; margin-top: 4px;" id="res-time-taken">Time taken: 0 mins</p>
+      </div>
+
+      <!-- Detailed Breakdown -->
+      <div class="card">
+        <h3 class="card-title">📊 Section Breakdown</h3>
+        <div style="font-size: 0.88rem; line-height: 1.6;">
+          <p>• <strong>Question 1 (Compulsory 7M):</strong> <span id="res-q1-score">0</span> / 7 Marks</p>
+          <p>• <strong>Unit-I Choice (14M):</strong> <span id="res-u1-status">Attempted</span></p>
+          <p>• <strong>Unit-II Choice (14M):</strong> <span id="res-u2-status">Attempted</span></p>
+        </div>
+      </div>
+
+      <!-- Model Answers Checklist & Comparison -->
+      <div class="card">
+        <h3 class="card-title">📖 Comprehensive Model Answers & Essential Key</h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">
+          Compare your written answers with the college model answers below. Assign your self-assessed marks honestly.
+        </p>
+        <div id="model-answers-review-list"></div>
+      </div>
+
+      <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 14px;">
+        🔄 Take Another Examination
+      </button>
+    </div>
+
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let modelPapers = [];
+    let currentPaper = null;
+    let timerInterval = null;
+    let secondsRemaining = 180 * 60; // 3 Hours = 10,800 seconds
+    let startTime = null;
+
+    const EXAM_SESSION_KEY = 'pem_active_exam_session';
+
+    // Student Answers State
+    let studentAnswers = {
+      paperId: 'model-1',
+      q1: {}, // subId -> selected or typed
+      u1_choice: 'q2', // 'q2' or 'q3'
+      u1_answers: { q2: {}, q3: {} },
+      u2_choice: 'q4', // 'q4' or 'q5'
+      u2_answers: { q4: {}, q5: {} },
+      u1_self_marks: 0,
+      u2_self_marks: 0,
+      notebookMode: false
+    };
+
+    let examSections = []; // list of questions for palette navigation
+    let currentSectionIndex = 0;
+
+    async function init() {
+      modelPapers = await loadJSON('data/model-papers.json') || [];
+
+      // Check if an existing exam session is active
+      const savedSession = localStorage.getItem(EXAM_SESSION_KEY);
+      if (savedSession) {
+        try {
+          const session = JSON.parse(savedSession);
+          if (session && session.active) {
+            currentPaper = modelPapers.find(p => p.id === session.paperId) || modelPapers[0];
+            studentAnswers = session.studentAnswers || studentAnswers;
+            currentSectionIndex = session.currentSectionIndex || 0;
+
+            const elapsedSecs = Math.floor((Date.now() - session.startTime) / 1000);
+            secondsRemaining = Math.max(0, (180 * 60) - elapsedSecs);
+
+            if (secondsRemaining <= 0) {
+              localStorage.removeItem(EXAM_SESSION_KEY);
+            } else {
+              resumeSavedExam();
+            }
+          }
+        } catch (e) {
+          console.error('Failed to restore exam session', e);
+        }
+      }
+    }
+
+    function resumeSavedExam() {
+      setupExamSections();
+      document.getElementById('exam-start-screen').style.display = 'none';
+      document.getElementById('exam-active-screen').style.display = 'block';
+      document.getElementById('exam-timer-bar').style.display = 'flex';
+      startTimer();
+      renderPalette();
+      renderActiveSection();
+    }
+
+    function setupExamSections() {
+      examSections = [];
+      currentPaper.q1.questions.forEach((q, idx) => {
+        examSections.push({ type: 'q1', subIdx: idx, title: `Q1.${idx+1}`, data: q });
+      });
+      examSections.push({ type: 'unit1', title: 'Unit-I', data: currentPaper.unit1 });
+      examSections.push({ type: 'unit2', title: 'Unit-II', data: currentPaper.unit2 });
+    }
+
+    function startExamination() {
+      const selectedId = document.getElementById('model-paper-select').value;
+      currentPaper = modelPapers.find(p => p.id === selectedId) || modelPapers[0];
+      studentAnswers.paperId = currentPaper.id;
+
+      setupExamSections();
+
+      // Switch Screens
+      document.getElementById('exam-start-screen').style.display = 'none';
+      document.getElementById('exam-active-screen').style.display = 'block';
+      document.getElementById('exam-timer-bar').style.display = 'flex';
+
+      startTime = Date.now();
+      secondsRemaining = 180 * 60;
+
+      // Save initial session to localStorage
+      persistSessionState();
+
+      startTimer();
+      renderPalette();
+      renderActiveSection();
+    }
+
+    function persistSessionState() {
+      try {
+        const session = {
+          active: true,
+          paperId: currentPaper ? currentPaper.id : 'model-1',
+          startTime: startTime || Date.now(),
+          currentSectionIndex: currentSectionIndex,
+          studentAnswers: studentAnswers
+        };
+        localStorage.setItem(EXAM_SESSION_KEY, JSON.stringify(session));
+      } catch (e) {}
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        secondsRemaining--;
+        if (secondsRemaining <= 0) {
+          clearInterval(timerInterval);
+          alert('Time is UP! Your examination is being submitted automatically.');
+          submitExamination();
+          return;
+        }
+
+        const hrs = Math.floor(secondsRemaining / 3600);
+        const mins = Math.floor((secondsRemaining % 3600) / 60);
+        const secs = secondsRemaining % 60;
+
+        const timeStr = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        const display = document.getElementById('timer-display');
+        display.textContent = timeStr;
+
+        if (secondsRemaining < 600) { // under 10 minutes
+          display.classList.add('urgent');
+        }
+      }, 1000);
+    }
+
+    function renderPalette() {
+      const palette = document.getElementById('question-palette-container');
+      palette.innerHTML = examSections.map((sec, idx) => {
+        let isAnswered = false;
+        if (sec.type === 'q1') {
+          isAnswered = !!studentAnswers.q1[sec.data.subId];
+        } else if (sec.type === 'unit1') {
+          const choice = studentAnswers.u1_choice;
+          isAnswered = Object.keys(studentAnswers.u1_answers[choice] || {}).length > 0;
+        } else if (sec.type === 'unit2') {
+          const choice = studentAnswers.u2_choice;
+          isAnswered = Object.keys(studentAnswers.u2_answers[choice] || {}).length > 0;
+        }
+
+        return `
+          <button class="palette-btn ${idx === currentSectionIndex ? 'active' : ''} ${isAnswered ? 'answered' : ''}" 
+            onclick="jumpToSection(${idx})">
+            ${sec.title}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function jumpToSection(idx) {
+      saveCurrentInputState();
+      currentSectionIndex = idx;
+      renderPalette();
+      renderActiveSection();
+    }
+
+    function examNavigate(dir) {
+      saveCurrentInputState();
+      const nextIdx = currentSectionIndex + dir;
+      if (nextIdx >= 0 && nextIdx < examSections.length) {
+        currentSectionIndex = nextIdx;
+        renderPalette();
+        renderActiveSection();
+      }
+    }
+
+    function saveCurrentInputState() {
+      const sec = examSections[currentSectionIndex];
+      if (!sec) return;
+
+      if (sec.type === 'q1') {
+        const textInput = document.getElementById('q1-text-input');
+        if (textInput) {
+          studentAnswers.q1[sec.data.subId] = textInput.value;
+        }
+      } else if (sec.type === 'unit1') {
+        const choice = studentAnswers.u1_choice;
+        document.querySelectorAll('.unit1-textarea').forEach(ta => {
+          const partKey = ta.getAttribute('data-part');
+          studentAnswers.u1_answers[choice][partKey] = ta.value;
+        });
+      } else if (sec.type === 'unit2') {
+        const choice = studentAnswers.u2_choice;
+        document.querySelectorAll('.unit2-textarea').forEach(ta => {
+          const partKey = ta.getAttribute('data-part');
+          studentAnswers.u2_answers[choice][partKey] = ta.value;
+        });
+      }
+      persistSessionState();
+    }
+
+    function renderActiveSection() {
+      const sec = examSections[currentSectionIndex];
+      const target = document.getElementById('active-question-wrapper');
+
+      document.getElementById('exam-prev-btn').disabled = currentSectionIndex === 0;
+      document.getElementById('exam-next-btn').disabled = currentSectionIndex === examSections.length - 1;
+
+      if (sec.type === 'q1') {
+        const q = sec.data;
+        const currentAnswer = studentAnswers.q1[q.subId] || '';
+
+        target.innerHTML = `
+          <div class="exam-q-box">
+            <div class="exam-q-meta">
+              <span class="badge badge-unit">Q1 (Compulsory) • 1 Mark</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">${q.marking}</span>
+            </div>
+            <div class="exam-q-text">${escapeHtml(q.question)}</div>
+
+            ${q.options ? `
+              <div class="exam-options-list">
+                ${q.options.map(opt => `
+                  <div class="exam-option ${currentAnswer === opt ? 'selected' : ''}" 
+                    onclick="selectQ1Option('${q.subId}', '${escapeQuotes(opt)}')">
+                    <span>🔘</span>
+                    <span>${escapeHtml(opt)}</span>
+                  </div>
+                `).join('')}
+              </div>
+            ` : `
+              <input type="text" id="q1-text-input" value="${escapeHtml(currentAnswer)}" 
+                placeholder="Type your short answer here..." 
+                style="width: 100%; padding: 12px; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.95rem; background: var(--bg-card); color: var(--text-main);">
+            `}
+          </div>
+        `;
+      } else if (sec.type === 'unit1' || sec.type === 'unit2') {
+        const isU1 = sec.type === 'unit1';
+        const unitData = sec.data;
+        const choiceKey = isU1 ? studentAnswers.u1_choice : studentAnswers.u2_choice;
+        const qData = unitData[choiceKey];
+        const answersBucket = isU1 ? studentAnswers.u1_answers[choiceKey] : studentAnswers.u2_answers[choiceKey];
+
+        target.innerHTML = `
+          <div class="exam-q-box">
+            <div class="exam-q-meta">
+              <span class="badge badge-marks">${isU1 ? 'UNIT-I' : 'UNIT-II'} • 14 MARKS</span>
+              <span style="font-weight: 700; color: var(--accent);">RULE: ATTEMPT ANY ONE</span>
+            </div>
+
+            <!-- Choice Radio Selector -->
+            <div style="background: var(--bg-main); border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 14px;">
+              <strong style="font-size: 0.88rem; display: block; margin-bottom: 6px;">Choose which question you want to attempt:</strong>
+              <div style="display: flex; gap: 16px;">
+                <label style="display: flex; align-items: center; gap: 6px; font-weight: 600; cursor: pointer;">
+                  <input type="radio" name="${isU1 ? 'u1-opt' : 'u2-opt'}" value="${isU1 ? 'q2' : 'q4'}" 
+                    ${choiceKey === (isU1 ? 'q2' : 'q4') ? 'checked' : ''} onchange="changeUnitChoice('${isU1 ? 'u1' : 'u2'}', this.value)">
+                  ${isU1 ? 'Question 2 (14M)' : 'Question 4 (14M)'}
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; font-weight: 600; cursor: pointer;">
+                  <input type="radio" name="${isU1 ? 'u1-opt' : 'u2-opt'}" value="${isU1 ? 'q3' : 'q5'}" 
+                    ${choiceKey === (isU1 ? 'q3' : 'q5') ? 'checked' : ''} onchange="changeUnitChoice('${isU1 ? 'u1' : 'u2'}', this.value)">
+                  ${isU1 ? 'Question 3 (14M)' : 'Question 5 (14M)'}
+                </label>
+              </div>
+            </div>
+
+            <!-- Notebook writing notification -->
+            <div class="notebook-mode-check">
+              <span>📓</span>
+              <div>
+                <strong>Physical Notebook Option:</strong> You can write full code, syntax, and definitions in your college notebook and simply verify against the model answer after submission.
+              </div>
+            </div>
+
+            <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 14px;">${qData.title}</h3>
+
+            <!-- Question Parts -->
+            ${qData.parts.map(part => `
+              <div style="margin-bottom: 18px; border-bottom: 1px dashed var(--border-color); padding-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 6px;">
+                  <span>${part.part}</span>
+                  <span class="badge badge-unit">${part.marks} Marks</span>
+                </div>
+                <div style="font-size: 0.95rem; line-height: 1.45; margin-bottom: 10px;">${escapeHtml(part.question)}</div>
+                <textarea class="${isU1 ? 'unit1-textarea' : 'unit2-textarea'}" data-part="${part.part}" 
+                  placeholder="Type your answer, syntax, and Python code here (or leave blank if writing in notebook)...">${escapeHtml(answersBucket[part.part] || '')}</textarea>
+              </div>
+            `).join('')}
+
+          </div>
+        `;
+      }
+    }
+
+    function selectQ1Option(subId, optionVal) {
+      studentAnswers.q1[subId] = optionVal;
+      renderActiveSection();
+      renderPalette();
+    }
+
+    function changeUnitChoice(unitKey, choice) {
+      saveCurrentInputState();
+      if (unitKey === 'u1') studentAnswers.u1_choice = choice;
+      if (unitKey === 'u2') studentAnswers.u2_choice = choice;
+      renderActiveSection();
+      renderPalette();
+    }
+
+    function confirmSubmitExam() {
+      saveCurrentInputState();
+      if (confirm('Are you ready to submit your 35-mark examination paper for evaluation?')) {
+        submitExamination();
+      }
+    }
+
+    function submitExamination() {
+      clearInterval(timerInterval);
+      saveCurrentInputState();
+
+      const timeSpentSecs = (180 * 60) - secondsRemaining;
+      const minsSpent = Math.max(1, Math.round(timeSpentSecs / 60));
+
+      // Calculate Q1 Score with Controlled Normalization & Accepted-Answer Checking
+      let q1Score = 0;
+      currentPaper.q1.questions.forEach(q => {
+        const studentAns = (studentAnswers.q1[q.subId] || '').trim().toLowerCase();
+        if (!studentAns) return;
+
+        let isCorrect = false;
+
+        // 1. If MCQ with options, check exact option match or letter
+        if (q.options) {
+          const match = q.modelAnswer.match(/\(([A-D])\)\s*(.*)/i);
+          const optionLetter = match ? match[1].toLowerCase() : '';
+          const optionText = match ? match[2].trim().toLowerCase() : '';
+
+          if (studentAns === optionLetter || studentAns === optionText || (q.acceptedAnswers && q.acceptedAnswers.map(a => a.toLowerCase()).includes(studentAns))) {
+            isCorrect = true;
+          }
+        } 
+        // 2. Controlled accepted-answers list
+        else if (q.acceptedAnswers && q.acceptedAnswers.length > 0) {
+          const normStudent = studentAns.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ");
+          for (let acc of q.acceptedAnswers) {
+            const normAcc = acc.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").replace(/\s+/g, " ");
+            if (normStudent === normAcc || studentAns === acc.trim().toLowerCase()) {
+              isCorrect = true;
+              break;
+            }
+          }
+        }
+
+        if (isCorrect) {
+          q1Score++;
+        }
+      });
+
+      // Clear active session upon submission
+      localStorage.removeItem(EXAM_SESSION_KEY);
+
+      // Switch to Results Screen
+      document.getElementById('exam-active-screen').style.display = 'none';
+      document.getElementById('exam-timer-bar').style.display = 'none';
+      document.getElementById('exam-result-screen').style.display = 'block';
+
+      document.getElementById('res-q1-score').textContent = q1Score;
+      document.getElementById('res-total-score').textContent = `${q1Score}* / 35`;
+      document.getElementById('res-verdict').innerHTML = `Objective Section: ${q1Score}/7 Marks<br><span style="font-size: 0.85rem; font-weight: normal; opacity: 0.9;">*Complete your 28-mark descriptive self-evaluation below.</span>`;
+      document.getElementById('res-time-taken').textContent = `Time taken: ${minsSpent} minutes`;
+
+      document.getElementById('res-u1-status').textContent = `Attempted ${studentAnswers.u1_choice.toUpperCase()} (14 Marks)`;
+      document.getElementById('res-u2-status').textContent = `Attempted ${studentAnswers.u2_choice.toUpperCase()} (14 Marks)`;
+
+      // Render Model Answers Checklist
+      renderReviewList();
+
+      // Save to Storage with descriptive self-assessment score
+      currentExamRecord = {
+        paperId: currentPaper.id,
+        paperTitle: currentPaper.title,
+        q1Score: q1Score,
+        descriptiveScore: 0,
+        totalScore: q1Score,
+        minsTaken: minsSpent,
+        attemptStatus: 'Completed (Self-evaluating)'
+      };
+      StorageManager.saveExamResult(currentExamRecord);
+
+      window.scrollTo(0, 0);
+    }
+
+    let currentExamRecord = null;
+
+    function renderReviewList() {
+      const container = document.getElementById('model-answers-review-list');
+      let html = '';
+
+      // Q1 Review
+      html += `<h4 style="color: var(--primary); margin: 12px 0 6px;">Question 1 (Compulsory Objective Review)</h4>`;
+      currentPaper.q1.questions.forEach((q, i) => {
+        const studentAns = studentAnswers.q1[q.subId] || 'Unattempted';
+        html += `
+          <div style="background: var(--bg-main); padding: 10px; border-radius: 6px; margin-bottom: 8px; border: 1px solid var(--border-color); font-size: 0.86rem;">
+            <strong>Q1.${i+1}:</strong> ${escapeHtml(q.question)}<br>
+            <span style="color: var(--text-muted);">Your Answer:</span> <strong>${escapeHtml(studentAns)}</strong><br>
+            <span style="color: var(--success);">Model Answer:</span> <strong>${escapeHtml(q.modelAnswer)}</strong>
+          </div>
+        `;
+      });
+
+      // Unit-I Review
+      const u1Key = studentAnswers.u1_choice;
+      const u1Data = currentPaper.unit1[u1Key];
+      html += `<h4 style="color: var(--primary); margin: 18px 0 6px;">Unit-I: ${u1Data.title} Model Answer</h4>`;
+      u1Data.parts.forEach(p => {
+        html += `
+          <div style="background: var(--bg-main); padding: 12px; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid var(--accent); font-size: 0.86rem;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 6px;">
+              <span>${p.part} (${p.marks} Marks)</span>
+            </div>
+            <p style="margin-bottom: 8px;"><strong>Question:</strong> ${escapeHtml(p.question)}</p>
+            <div style="background: var(--bg-card); padding: 10px; border-radius: 4px; border: 1px solid var(--border-color); white-space: pre-line; line-height: 1.45; margin-bottom: 8px;">
+              <strong style="color: var(--success);">Essential Model Answer & Key:</strong>\n${p.modelAnswer}
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; background: var(--accent-light); padding: 8px 10px; border-radius: 4px;">
+              <span style="font-size: 0.82rem; font-weight: 600; color: #92400e;">Self-Assessed Score (Max ${p.marks}M):</span>
+              <select onchange="updateSelfAssessedMarks()" class="self-score-select" data-max="${p.marks}" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color); font-weight: 700;">
+                ${Array.from({length: p.marks + 1}, (_, idx) => `<option value="${idx}">${idx} Marks</option>`).join('')}
+              </select>
+            </div>
+          </div>
+        `;
+      });
+
+      // Unit-II Review
+      const u2Key = studentAnswers.u2_choice;
+      const u2Data = currentPaper.unit2[u2Key];
+      html += `<h4 style="color: var(--primary); margin: 18px 0 6px;">Unit-II: ${u2Data.title} Model Answer</h4>`;
+      u2Data.parts.forEach(p => {
+        html += `
+          <div style="background: var(--bg-main); padding: 12px; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid var(--accent); font-size: 0.86rem;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 6px;">
+              <span>${p.part} (${p.marks} Marks)</span>
+            </div>
+            <p style="margin-bottom: 8px;"><strong>Question:</strong> ${escapeHtml(p.question)}</p>
+            <div style="background: var(--bg-card); padding: 10px; border-radius: 4px; border: 1px solid var(--border-color); white-space: pre-line; line-height: 1.45; margin-bottom: 8px;">
+              <strong style="color: var(--success);">Essential Model Answer & Key:</strong>\n${p.modelAnswer}
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; background: var(--accent-light); padding: 8px 10px; border-radius: 4px;">
+              <span style="font-size: 0.82rem; font-weight: 600; color: #92400e;">Self-Assessed Score (Max ${p.marks}M):</span>
+              <select onchange="updateSelfAssessedMarks()" class="self-score-select" data-max="${p.marks}" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color); font-weight: 700;">
+                ${Array.from({length: p.marks + 1}, (_, idx) => `<option value="${idx}">${idx} Marks</option>`).join('')}
+              </select>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function updateSelfAssessedMarks() {
+      let totalDescriptive = 0;
+      document.querySelectorAll('.self-score-select').forEach(sel => {
+        totalDescriptive += parseInt(sel.value) || 0;
+      });
+
+      const q1Score = parseInt(document.getElementById('res-q1-score').textContent) || 0;
+      const grandTotal = Math.min(35, q1Score + totalDescriptive);
+      document.getElementById('res-total-score').textContent = `${grandTotal} / 35`;
+      document.getElementById('res-verdict').innerHTML = `Final Verified Score: ${grandTotal}/35 Marks<br><span style="font-size: 0.82rem; font-weight: normal; opacity: 0.9;">(Objective: ${q1Score}/7 + Descriptive: ${totalDescriptive}/28)</span>`;
+
+      // Update storage with final self-assessed total
+      if (currentExamRecord) {
+        currentExamRecord.descriptiveScore = totalDescriptive;
+        currentExamRecord.totalScore = grandTotal;
+        currentExamRecord.attemptStatus = 'Fully Evaluated';
+        StorageManager.updateLatestExamResult(currentExamRecord);
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function escapeQuotes(text) {
+      if (!text) return '';
+      return String(text).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+

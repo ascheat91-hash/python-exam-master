@@ -1,0 +1,179 @@
+/* Real College Examination Simulator Styles */
+
+.exam-banner-fixed {
+  position: sticky;
+  top: 50px;
+  z-index: 90;
+  background-color: var(--primary-dark);
+  color: #ffffff;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-md);
+}
+
+.exam-timer {
+  font-family: Consolas, monospace;
+  font-size: 1.15rem;
+  font-weight: 800;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  color: #fef08a;
+  letter-spacing: 1px;
+}
+
+.exam-timer.urgent {
+  background-color: var(--danger);
+  color: #ffffff;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Question Palette for quick jumps on phone */
+.question-palette {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 0;
+  margin-bottom: 12px;
+  scrollbar-width: none;
+}
+
+.question-palette::-webkit-scrollbar {
+  display: none;
+}
+
+.palette-btn {
+  min-width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.palette-btn.active {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+  color: #ffffff;
+}
+
+.palette-btn.answered {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: #ffffff;
+}
+
+/* Exam Question Box */
+.exam-q-box {
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.exam-q-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 8px;
+}
+
+.exam-q-text {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+/* Options for MCQs in exam */
+.exam-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background-color: var(--bg-main);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.exam-option.selected {
+  border-color: var(--primary);
+  background-color: #eff6ff;
+  font-weight: 600;
+}
+
+/* Long Answer Writing Interface */
+.exam-textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.exam-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background-color: var(--bg-card);
+}
+
+/* Notebook Writing Checkbox */
+.notebook-mode-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: #fefce8;
+  border: 1px solid #fef08a;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: #854d0e;
+  margin-bottom: 12px;
+}
+
+/* Result Screen */
+.result-card {
+  text-align: center;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #ffffff;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+
+.result-score {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  margin: 10px 0;
+  color: #fef08a;
+}
+

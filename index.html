@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Python Exam Master - College Preparation (BSC/BA/CSE/MD/5/DSC/301)</title>
+  <meta name="description" content="Mobile-first complete Python syllabus notes, question practice & 35-mark 3-hour exam simulator for college students.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1e3a8a">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+
+  <!-- Top Offline Notification Banner -->
+  <div id="offline-banner" class="offline-banner">
+    ⚡ Offline Mode Active — Complete Notes & Questions Cached on Phone
+  </div>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <a href="index.html" class="header-brand">
+      <span>🐍</span>
+      <span>Python Exam Master</span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle Theme">🌙</button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container">
+
+    <!-- College Course Banner -->
+    <div class="college-banner">
+      <span class="college-badge">SEMESTER V • EXTERNAL EXAM</span>
+      <h1 class="college-title">Python Programming</h1>
+      <p class="college-details">
+        <strong>Course Code:</strong> BSC/BA/CSE/MD/5/DSC/301<br>
+        <strong>Max Marks:</strong> 35 Marks &nbsp;|&nbsp; <strong>Duration:</strong> 3 Hours (180 Mins)<br>
+        <strong>Pattern:</strong> Q1 Compulsory (7M) + Unit-I (14M) + Unit-II (14M)
+      </p>
+    </div>
+
+    <!-- Quick Action Launchpad -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+      <a href="notes.html" class="btn btn-primary" style="flex-direction: column; padding: 16px 10px; text-align: center;">
+        <span style="font-size: 1.5rem; margin-bottom: 4px;">📖</span>
+        <span>Study Notes</span>
+        <span style="font-size: 0.72rem; font-weight: normal; opacity: 0.85;">All 31 Topics</span>
+      </a>
+
+      <a href="exam.html" class="btn btn-accent" style="flex-direction: column; padding: 16px 10px; text-align: center;">
+        <span style="font-size: 1.5rem; margin-bottom: 4px;">⏱️</span>
+        <span>Real Simulator</span>
+        <span style="font-size: 0.72rem; font-weight: normal; opacity: 0.85;">35 Marks • 3 Hours</span>
+      </a>
+    </div>
+
+    <!-- Preparation Progress Widget -->
+    <div class="card">
+      <div class="card-title">
+        <span>📊 Your Preparation Progress</span>
+        <span id="overall-percentage" class="badge badge-marks">0%</span>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+        Completed: <strong id="completed-count">0</strong> / 31 Topics
+      </p>
+      <div class="progress-container">
+        <div id="topics-progress-bar" class="progress-bar" style="width: 0%;"></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-top: 6px; color: var(--text-muted);">
+        <span>Unit-I: <strong id="u1-status">0/14</strong></span>
+        <span>Unit-II: <strong id="u2-status">0/17</strong></span>
+      </div>
+    </div>
+
+    <!-- Syllabus Unit Modules -->
+    <div class="card">
+      <div class="card-title">
+        <span>📦 UNIT - I (14 Marks)</span>
+        <span class="badge badge-unit">Part 1</span>
+      </div>
+      <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 12px;">
+        Introduction to Python, Keywords, Identifiers, Comments, Variables, Data Types (int, float, complex, str, bool), Arithmetic, Comparison, Assignment, Logical & Identity Operators, Precedence.
+      </p>
+      <div style="display: flex; gap: 8px;">
+        <a href="notes.html?unit=unit-1" class="btn btn-outline btn-sm" style="flex: 1;">Read Notes</a>
+        <a href="practice.html?unit=unit-1" class="btn btn-primary btn-sm" style="flex: 1;">Practice MCQs</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>📦 UNIT - II (14 Marks)</span>
+        <span class="badge badge-unit">Part 2</span>
+      </div>
+      <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 12px;">
+        Control Flow, Decision Making (if, if-else, if-elif, nested if), Loops (while, for, range(), nested loops, break, continue, pass), Lists (create, access, update, delete, built-in functions, methods, 1D array implementation).
+      </p>
+      <div style="display: flex; gap: 8px;">
+        <a href="notes.html?unit=unit-2" class="btn btn-outline btn-sm" style="flex: 1;">Read Notes</a>
+        <a href="practice.html?unit=unit-2" class="btn btn-primary btn-sm" style="flex: 1;">Practice MCQs</a>
+      </div>
+    </div>
+
+    <!-- Quick Tool Cards -->
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+      <a href="programs.html" class="card" style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: space-between; padding: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 1.4rem;">💻</span>
+          <div>
+            <strong style="display: block; font-size: 0.95rem;">Python Programs Practice</strong>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Notebook-based writing & dry-run tables</span>
+          </div>
+        </div>
+        <span>➔</span>
+      </a>
+
+      <a href="model-papers.html" class="card" style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: space-between; padding: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 1.4rem;">📝</span>
+          <div>
+            <strong style="display: block; font-size: 0.95rem;">5 Full Model Papers (35M)</strong>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">With full model answers & marks distribution</span>
+          </div>
+        </div>
+        <span>➔</span>
+      </a>
+
+      <a href="revision.html" class="card" style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: space-between; padding: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 1.4rem;">⚡</span>
+          <div>
+            <strong style="display: block; font-size: 0.95rem;">One-Day Exam Revision</strong>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Cheat sheets, definitions & last-minute checklist</span>
+          </div>
+        </div>
+        <span>➔</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="notes.html" class="nav-item">
+      <span class="nav-icon">📖</span>
+      <span>Notes</span>
+    </a>
+    <a href="practice.html" class="nav-item">
+      <span class="nav-icon">✍️</span>
+      <span>Practice</span>
+    </a>
+    <a href="exam.html" class="nav-item">
+      <span class="nav-icon">⏱️</span>
+      <span>Exam</span>
+    </a>
+    <a href="progress.html" class="nav-item">
+      <span class="nav-icon">📊</span>
+      <span>Progress</span>
+    </a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Update dashboard statistics
+    document.addEventListener('DOMContentLoaded', () => {
+      const completed = StorageManager.getCompletedTopics();
+      const total = 31;
+      const count = completed.length;
+      const pct = Math.round((count / total) * 100);
+
+      document.getElementById('completed-count').textContent = count;
+      document.getElementById('overall-percentage').textContent = pct + '%';
+      document.getElementById('topics-progress-bar').style.width = pct + '%';
+
+      // Count by unit
+      let u1 = 0, u2 = 0;
+      completed.forEach(id => {
+        if (id.startsWith('u1-')) u1++;
+        if (id.startsWith('u2-')) u2++;
+      });
+      document.getElementById('u1-status').textContent = `${u1}/14`;
+      document.getElementById('u2-status').textContent = `${u2}/17`;
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>5 Model Examination Papers - Python Programming (35 Marks)</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+  <div id="offline-banner" class="offline-banner">⚡ Offline Mode Active</div>
+
+  <header class="app-header">
+    <a href="index.html" class="header-brand">
+      <span>⬅️</span>
+      <span>5 Model Papers</span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle-btn" class="icon-btn">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="card" style="background: #eff6ff; border: 1.5px solid #bfdbfe; margin-bottom: 16px;">
+      <h2 style="font-size: 1.05rem; color: var(--primary); margin-bottom: 4px;">🎯 College Practice Papers</h2>
+      <p style="font-size: 0.85rem; color: #1e40af; line-height: 1.4;">
+        5 full 35-mark, 3-hour practice question papers designed strictly on your college syllabus & question format. Each paper comes with full model solutions & marking guidance.
+      </p>
+    </div>
+
+    <div id="papers-list-target">
+      <div style="text-align: center; padding: 30px; color: var(--text-muted);">
+        Loading model papers...
+      </div>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="notes.html" class="nav-item">
+      <span class="nav-icon">📖</span>
+      <span>Notes</span>
+    </a>
+    <a href="practice.html" class="nav-item">
+      <span class="nav-icon">✍️</span>
+      <span>Practice</span>
+    </a>
+    <a href="exam.html" class="nav-item">
+      <span class="nav-icon">⏱️</span>
+      <span>Exam</span>
+    </a>
+    <a href="progress.html" class="nav-item">
+      <span class="nav-icon">📊</span>
+      <span>Progress</span>
+    </a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    async function init() {
+      const papers = await loadJSON('data/model-papers.json') || [];
+      const target = document.getElementById('papers-list-target');
+
+      target.innerHTML = papers.map((paper, idx) => `
+        <div class="card" style="border-left: 4px solid var(--primary); margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span class="badge badge-unit">${paper.title}</span>
+            <span class="badge badge-marks">35 Marks • 3 Hours</span>
+          </div>
+          <h3 style="font-size: 1.05rem; color: var(--text-main); margin-bottom: 6px;">${paper.subtitle}</h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px;">
+            • Q1 Compulsory (7 Marks): 7 Short/Objective questions.<br>
+            • Unit-I (14 Marks): Q2 or Q3.<br>
+            • Unit-II (14 Marks): Q4 or Q5.
+          </p>
+          <div style="display: flex; gap: 8px;">
+            <a href="exam.html" class="btn btn-primary btn-sm" style="flex: 1;">
+              ⏱️ Attempt in Simulator
+            </a>
+            <button class="btn btn-outline btn-sm" style="flex: 1;" onclick="togglePaperAnswers(${idx})">
+              📖 View Paper & Solutions
+            </button>
+          </div>
+
+          <!-- Paper Details Drawer -->
+          <div id="paper-drawer-${idx}" style="display: none; margin-top: 14px; border-top: 1px dashed var(--border-color); padding-top: 12px; font-size: 0.88rem;">
+            <strong style="color: var(--primary); display: block; margin-bottom: 6px;">Question 1 (Compulsory):</strong>
+            <ul style="padding-left: 18px; margin-bottom: 10px;">
+              ${paper.q1.questions.map(q => `<li style="margin-bottom: 4px;"><strong>Q:</strong> ${escapeHtml(q.question)}<br><strong style="color: var(--success);">Ans:</strong> ${escapeHtml(q.modelAnswer)}</li>`).join('')}
+            </ul>
+
+            <strong style="color: var(--primary); display: block; margin-bottom: 6px;">Unit-I (14M Options):</strong>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px;">
+              • ${paper.unit1.q2.title}: ${paper.unit1.q2.parts.map(p => p.part).join(', ')}<br>
+              • ${paper.unit1.q3.title}: ${paper.unit1.q3.parts.map(p => p.part).join(', ')}
+            </p>
+
+            <strong style="color: var(--primary); display: block; margin-bottom: 6px;">Unit-II (14M Options):</strong>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px;">
+              • ${paper.unit2.q4.title}: ${paper.unit2.q4.parts.map(p => p.part).join(', ')}<br>
+              • ${paper.unit2.q5.title}: ${paper.unit2.q5.parts.map(p => p.part).join(', ')}
+            </p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function togglePaperAnswers(idx) {
+      const drawer = document.getElementById(`paper-drawer-${idx}`);
+      drawer.style.display = drawer.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+

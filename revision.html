@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>One-Day & Last-Minute Exam Revision - Python Programming</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+  <div id="offline-banner" class="offline-banner">⚡ Offline Mode Active</div>
+
+  <header class="app-header">
+    <a href="index.html" class="header-brand">
+      <span>⬅️</span>
+      <span>Quick Revision</span>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle-btn" class="icon-btn">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Revision Banner -->
+    <div class="card" style="background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%); color: #ffffff; padding: 16px; margin-bottom: 16px;">
+      <h2 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 4px;">⚡ One-Day Exam Revision Capsule</h2>
+      <p style="font-size: 0.82rem; opacity: 0.95; line-height: 1.4;">
+        High-yield definitions, essential syntax formulas, operator cheat sheets, and common exam traps for rapid revision before the examination hall.
+      </p>
+    </div>
+
+    <!-- Section 1: One-Day Exam Checklist -->
+    <div class="card">
+      <h3 class="card-title">🚨 10 Golden Rules to Remember in Exam</h3>
+      <div id="revision-checklist" style="font-size: 0.86rem; line-height: 1.5; color: var(--text-main);"></div>
+    </div>
+
+    <!-- Section 2: Important Definitions (1-Mark Direct) -->
+    <div class="card">
+      <h3 class="card-title">📖 Essential 1-Mark Definitions</h3>
+      <div id="definitions-list" style="font-size: 0.86rem;"></div>
+    </div>
+
+    <!-- Section 3: Python Syntax Cheat-Sheet -->
+    <div class="card">
+      <h3 class="card-title">⚙️ Essential Syntax Formula Sheet</h3>
+      <div id="syntax-list"></div>
+    </div>
+
+    <!-- Section 4: Operators Quick Comparison -->
+    <div class="card">
+      <h3 class="card-title">⚖️ Operators Reference Table</h3>
+      <div class="table-wrapper">
+        <table class="dry-run-table">
+          <thead><tr><th>Operator</th><th>Category</th><th>Exam Note</th></tr></thead>
+          <tbody id="operators-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="notes.html" class="nav-item">
+      <span class="nav-icon">📖</span>
+      <span>Notes</span>
+    </a>
+    <a href="practice.html" class="nav-item">
+      <span class="nav-icon">✍️</span>
+      <span>Practice</span>
+    </a>
+    <a href="exam.html" class="nav-item">
+      <span class="nav-icon">⏱️</span>
+      <span>Exam</span>
+    </a>
+    <a href="progress.html" class="nav-item">
+      <span class="nav-icon">📊</span>
+      <span>Progress</span>
+    </a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    async function init() {
+      const data = await loadJSON('data/revision.json') || {};
+
+      // 1. Checklist
+      const checkEl = document.getElementById('revision-checklist');
+      checkEl.innerHTML = (data.oneDayRevisionChecklist || []).map((item, i) => `
+        <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start;">
+          <span style="color: var(--success); font-weight: 700;">✓</span>
+          <span>${item}</span>
+        </div>
+      `).join('');
+
+      // 2. Definitions
+      const defEl = document.getElementById('definitions-list');
+      defEl.innerHTML = (data.quickDefinitions || []).map(d => `
+        <div style="background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; margin-bottom: 8px;">
+          <strong style="color: var(--primary);">${d.term}:</strong>
+          <p style="margin-top: 3px; color: var(--text-muted);">${d.def}</p>
+        </div>
+      `).join('');
+
+      // 3. Syntax list
+      const synEl = document.getElementById('syntax-list');
+      synEl.innerHTML = (data.syntaxCheatSheet || []).map(s => `
+        <div style="margin-bottom: 10px;">
+          <strong style="font-size: 0.85rem; color: var(--text-main);">${s.title}:</strong>
+          <div class="code-block" style="margin: 4px 0;"><pre>${escapeHtml(s.syntax)}</pre></div>
+        </div>
+      `).join('');
+
+      // 4. Operators table
+      const opTable = document.getElementById('operators-table-body');
+      opTable.innerHTML = (data.operatorsComparison || []).map(o => `
+        <tr>
+          <td><code>${escapeHtml(o.op)}</code></td>
+          <td>${o.name}</td>
+          <td><small>${o.notes}</small></td>
+        </tr>
+      `).join('');
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+

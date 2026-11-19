@@ -1,0 +1,1093 @@
+[
+  {
+    "id": "q-1",
+    "topicId": "u1-t1",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 0",
+    "question": "Who is the creator of the Python programming language?",
+    "options": [
+      "Dennis Ritchie",
+      "Guido van Rossum",
+      "Bjarne Stroustrup",
+      "James Gosling"
+    ],
+    "correct": "Guido van Rossum",
+    "explanation": "Python was designed and created by Guido van Rossum and released in 1991."
+  },
+  {
+    "id": "q-2",
+    "topicId": "u1-t1",
+    "unit": "Unit-I",
+    "category": "TrueFalse",
+    "level": "Level 0",
+    "question": "Python is an interpreted language that executes statements line-by-line.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct": "True",
+    "explanation": "Python translates and executes source code line-by-line using an interpreter."
+  },
+  {
+    "id": "q-3",
+    "topicId": "u1-t1",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What will be the output of:\nprint('Python')\nprint('301')",
+    "options": null,
+    "correct": "Python\n301",
+    "explanation": "Each print() statement by default ends with a newline character, displaying output on separate lines."
+  },
+  {
+    "id": "q-4",
+    "topicId": "u1-t2",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "Which of the following is a valid identifier name in Python?",
+    "options": [
+      "2nd_score",
+      "total-marks",
+      "_student_age",
+      "for"
+    ],
+    "correct": "_student_age",
+    "explanation": "Identifiers can contain letters, numbers, and underscores, but cannot start with a digit, cannot contain hyphens, and cannot be keywords."
+  },
+  {
+    "id": "q-5",
+    "topicId": "u1-t2",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 2",
+    "question": "Which 3 Python keywords start with a Capital letter?",
+    "options": [
+      "if, else, while",
+      "True, False, None",
+      "int, float, str",
+      "def, return, pass"
+    ],
+    "correct": "True, False, None",
+    "explanation": "In Python 3, all reserved keywords are in lowercase except True, False, and None."
+  },
+  {
+    "id": "q-6",
+    "topicId": "u1-t2",
+    "unit": "Unit-I",
+    "category": "FillBlank",
+    "level": "Level 1",
+    "question": "An identifier in Python cannot begin with a ________.",
+    "options": null,
+    "correct": "digit",
+    "explanation": "Identifiers must begin with an alphabetic letter (a-z, A-Z) or an underscore (_)."
+  },
+  {
+    "id": "q-7",
+    "topicId": "u1-t3",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 0",
+    "question": "Which character is used to write a single-line comment in Python?",
+    "options": [
+      "//",
+      "/*",
+      "#",
+      "--"
+    ],
+    "correct": "#",
+    "explanation": "Python uses the hash symbol (#) for single-line comments. (// is floor division in Python)."
+  },
+  {
+    "id": "q-8",
+    "topicId": "u1-t3",
+    "unit": "Unit-I",
+    "category": "TrueFalse",
+    "level": "Level 1",
+    "question": "Comments in Python are executed by the interpreter and affect the final program output.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct": "False",
+    "explanation": "Comments are non-executable statements completely ignored by the Python interpreter."
+  },
+  {
+    "id": "q-9",
+    "topicId": "u1-t3",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of:\n# print('Hello')\nprint('Exam')\n# print('Python')",
+    "options": null,
+    "correct": "Exam",
+    "explanation": "Lines beginning with '#' are ignored, so only 'Exam' is printed."
+  },
+  {
+    "id": "q-10",
+    "topicId": "u1-t4",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "What is the return data type of the input() function in Python?",
+    "options": [
+      "int",
+      "float",
+      "str",
+      "bool"
+    ],
+    "correct": "str",
+    "explanation": "The input() function always reads and returns user input as a string (str)."
+  },
+  {
+    "id": "q-11",
+    "topicId": "u1-t4",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\nx = 10\ny = 20\nx, y = y, x\nprint(x, y)",
+    "options": null,
+    "correct": "20 10",
+    "explanation": "Python supports tuple unpacking for swapping variables directly without a temporary variable."
+  },
+  {
+    "id": "q-12",
+    "topicId": "u1-t4",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 2",
+    "question": "To read an integer from user in Python, which function call is used?",
+    "options": [
+      "int(input())",
+      "readInt()",
+      "input.integer()",
+      "cin >> x"
+    ],
+    "correct": "int(input())",
+    "explanation": "int(input()) converts the string returned by input() into an integer."
+  },
+  {
+    "id": "q-13",
+    "topicId": "u1-t5",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 0",
+    "question": "Which built-in function is used to find the data type of an object in Python?",
+    "options": [
+      "typeof()",
+      "type()",
+      "dataType()",
+      "check()"
+    ],
+    "correct": "type()",
+    "explanation": "The type() function returns the class type of an object."
+  },
+  {
+    "id": "q-14",
+    "topicId": "u1-t5",
+    "unit": "Unit-I",
+    "category": "TrueFalse",
+    "level": "Level 1",
+    "question": "Python requires you to declare the data type of a variable before assigning a value to it.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct": "False",
+    "explanation": "Python is dynamically typed; data types are inferred implicitly upon assignment."
+  },
+  {
+    "id": "q-15",
+    "topicId": "u1-t6",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "What is the data type of the result of the expression: 10 / 2?",
+    "options": [
+      "int",
+      "float",
+      "complex",
+      "number"
+    ],
+    "correct": "float",
+    "explanation": "In Python 3, the float division operator '/' always returns a float (5.0), even for exact divisions."
+  },
+  {
+    "id": "q-16",
+    "topicId": "u1-t6",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\nz = 3 + 4j\nprint(z.imag)",
+    "options": null,
+    "correct": "4.0",
+    "explanation": "The .imag attribute extracts the imaginary component of a complex number as a float (4.0)."
+  },
+  {
+    "id": "q-17",
+    "topicId": "u1-t6",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "Which symbol represents the imaginary part in Python complex numbers?",
+    "options": [
+      "i",
+      "j",
+      "k",
+      "img"
+    ],
+    "correct": "j",
+    "explanation": "Python uses 'j' or 'J' for the imaginary unit (e.g., 2 + 3j)."
+  },
+  {
+    "id": "q-18",
+    "topicId": "u1-t7",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "What will be the output of: 'COLLEGE'[-1]?",
+    "options": [
+      "C",
+      "E",
+      "G",
+      "Error"
+    ],
+    "correct": "E",
+    "explanation": "Negative index -1 accesses the very last character of a string, which is 'E'."
+  },
+  {
+    "id": "q-19",
+    "topicId": "u1-t7",
+    "unit": "Unit-I",
+    "category": "TrueFalse",
+    "level": "Level 1",
+    "question": "Strings in Python are mutable and can be changed using s[0] = 'A'.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct": "False",
+    "explanation": "Strings are immutable. Trying to reassign a character raises a TypeError."
+  },
+  {
+    "id": "q-20",
+    "topicId": "u1-t7",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\ns = 'PYTHON'\nprint(s[1:4])",
+    "options": null,
+    "correct": "YTH",
+    "explanation": "Slicing s[1:4] extracts characters at indices 1, 2, and 3 ('Y', 'T', 'H'). Stop index 4 is excluded."
+  },
+  {
+    "id": "q-21",
+    "topicId": "u1-t8",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "What is the output of the arithmetic expression: True + True + False?",
+    "options": [
+      "2",
+      "1",
+      "True",
+      "Error"
+    ],
+    "correct": "2",
+    "explanation": "In Python, True has integer value 1 and False has integer value 0. 1 + 1 + 0 = 2."
+  },
+  {
+    "id": "q-22",
+    "topicId": "u1-t8",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 2",
+    "question": "What does bool(0) and bool(15) return in Python?",
+    "options": [
+      "False, True",
+      "True, False",
+      "0, 15",
+      "Error"
+    ],
+    "correct": "False, True",
+    "explanation": "Numeric 0 evaluates to False; any non-zero number evaluates to True."
+  },
+  {
+    "id": "q-23",
+    "topicId": "u1-t9",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of: print(11 // 3, 11 % 3)?",
+    "options": null,
+    "correct": "3 2",
+    "explanation": "11 // 3 is floor division giving quotient 3; 11 % 3 gives remainder 2."
+  },
+  {
+    "id": "q-24",
+    "topicId": "u1-t9",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of: print(2 ** 4)?",
+    "options": null,
+    "correct": "16",
+    "explanation": "2 ** 4 means 2 raised to the power 4 (2*2*2*2 = 16)."
+  },
+  {
+    "id": "q-25",
+    "topicId": "u1-t9",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 2",
+    "question": "What is the result of 15 / 3 in Python 3?",
+    "options": [
+      "5",
+      "5.0",
+      "3",
+      "Error"
+    ],
+    "correct": "5.0",
+    "explanation": "Division operator '/' always returns a floating point number in Python 3."
+  },
+  {
+    "id": "q-26",
+    "topicId": "u1-t10",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 0",
+    "question": "Which operator is used to test for equality of two values?",
+    "options": [
+      "=",
+      "==",
+      "===",
+      "equals"
+    ],
+    "correct": "==",
+    "explanation": "'==' compares two values. Single '=' is the assignment operator."
+  },
+  {
+    "id": "q-27",
+    "topicId": "u1-t10",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of: print(10 >= 10)?",
+    "options": null,
+    "correct": "True",
+    "explanation": "10 is equal to 10, so >= evaluates to True."
+  },
+  {
+    "id": "q-28",
+    "topicId": "u1-t11",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "Which of the following is NOT valid Python syntax?",
+    "options": [
+      "x += 1",
+      "x = x + 1",
+      "x++",
+      "x -= 1"
+    ],
+    "correct": "x++",
+    "explanation": "Python does NOT have pre-increment or post-increment (++) operators."
+  },
+  {
+    "id": "q-29",
+    "topicId": "u1-t11",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\na = 12\na //= 5\nprint(a)",
+    "options": null,
+    "correct": "2",
+    "explanation": "a //= 5 is equivalent to a = 12 // 5, which results in integer 2."
+  },
+  {
+    "id": "q-30",
+    "topicId": "u1-t12",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "Which logical operator in Python returns True if at least one operand is True?",
+    "options": [
+      "and",
+      "or",
+      "not",
+      "xor"
+    ],
+    "correct": "or",
+    "explanation": "The 'or' operator evaluates to True if any one operand is True."
+  },
+  {
+    "id": "q-31",
+    "topicId": "u1-t12",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of: print(not (5 > 2 and 3 < 1))?",
+    "options": null,
+    "correct": "True",
+    "explanation": "5 > 2 is True, 3 < 1 is False. True and False = False. not False = True."
+  },
+  {
+    "id": "q-32",
+    "topicId": "u1-t13",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 2",
+    "question": "What do identity operators (is, is not) compare?",
+    "options": [
+      "Values of operands",
+      "Memory addresses of operands",
+      "Data types only",
+      "Variable names"
+    ],
+    "correct": "Memory addresses of operands",
+    "explanation": "'is' checks whether two variables refer to the exact same memory location (id)."
+  },
+  {
+    "id": "q-33",
+    "topicId": "u1-t13",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 3",
+    "question": "What is the output of:\na = [1, 2]\nb = [1, 2]\nprint(a == b, a is b)",
+    "options": null,
+    "correct": "True False",
+    "explanation": "a == b is True because values are identical; a is b is False because they are two distinct objects in memory."
+  },
+  {
+    "id": "q-34",
+    "topicId": "u1-t14",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of: print(2 ** 3 ** 2)?",
+    "options": null,
+    "correct": "512",
+    "explanation": "Exponentiation ** has right-to-left associativity: 3 ** 2 = 9, then 2 ** 9 = 512."
+  },
+  {
+    "id": "q-35",
+    "topicId": "u1-t14",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of: print(10 + 4 * 2)?",
+    "options": null,
+    "correct": "18",
+    "explanation": "Multiplication (*) has higher precedence than addition (+): 4 * 2 = 8; 10 + 8 = 18."
+  },
+  {
+    "id": "q-36",
+    "topicId": "u2-t1",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 0",
+    "question": "In Python, which symbol is required at the end of an if condition header?",
+    "options": [
+      ";",
+      ":",
+      "{",
+      "then"
+    ],
+    "correct": ":",
+    "explanation": "Every compound header in Python (if, else, elif, while, for) must terminate with a colon (:)."
+  },
+  {
+    "id": "q-37",
+    "topicId": "u2-t1",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "How does Python define a block of statements inside a condition?",
+    "options": [
+      "Curly braces {}",
+      "Parentheses ()",
+      "Indentation (whitespace)",
+      "Begin and End keywords"
+    ],
+    "correct": "Indentation (whitespace)",
+    "explanation": "Python uses consistent indentation (usually 4 spaces) instead of brackets to delimit blocks."
+  },
+  {
+    "id": "q-38",
+    "topicId": "u2-t2",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of:\nx = 5\nif x < 10:\n    print('A')\nprint('B')",
+    "options": null,
+    "correct": "A\nB",
+    "explanation": "5 < 10 is True, so 'A' prints. Then sequential statement 'B' prints."
+  },
+  {
+    "id": "q-39",
+    "topicId": "u2-t3",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of:\nnum = 9\nif num % 2 == 0:\n    print('Even')\nelse:\n    print('Odd')",
+    "options": null,
+    "correct": "Odd",
+    "explanation": "9 % 2 is 1 (not 0), so the condition is False and the else block executes."
+  },
+  {
+    "id": "q-40",
+    "topicId": "u2-t3",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "Can an 'else' statement have a test condition directly written with it?",
+    "options": [
+      "Yes",
+      "No",
+      "Only if followed by 'if'",
+      "Depends on Python version"
+    ],
+    "correct": "No",
+    "explanation": "An 'else' statement never takes a condition. Use 'elif' if a condition is required."
+  },
+  {
+    "id": "q-41",
+    "topicId": "u2-t4",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "What is the keyword for 'else if' in Python?",
+    "options": [
+      "elseif",
+      "else if",
+      "elif",
+      "elsif"
+    ],
+    "correct": "elif",
+    "explanation": "Python uses 'elif' as the keyword for else if."
+  },
+  {
+    "id": "q-42",
+    "topicId": "u2-t4",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\nmarks = 75\nif marks > 90:\n    print('A')\nelif marks > 70:\n    print('B')\nelif marks > 60:\n    print('C')\nelse:\n    print('D')",
+    "options": null,
+    "correct": "B",
+    "explanation": "The first condition evaluating to True is marks > 70, so 'B' prints and the remaining ladder is skipped."
+  },
+  {
+    "id": "q-43",
+    "topicId": "u2-t5",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\na, b = 10, 20\nif a > 5:\n    if b < 15:\n        print('One')\n    else:\n        print('Two')",
+    "options": null,
+    "correct": "Two",
+    "explanation": "a > 5 is True, so execution enters inner if. b < 15 (20 < 15) is False, so inner else prints 'Two'."
+  },
+  {
+    "id": "q-44",
+    "topicId": "u2-t6",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "Why is the while loop referred to as an entry-controlled loop?",
+    "options": [
+      "It controls program entry",
+      "Condition is checked before executing loop body",
+      "It can never be infinite",
+      "It only executes once"
+    ],
+    "correct": "Condition is checked before executing loop body",
+    "explanation": "In while loops, the condition is evaluated at the entry point before each execution."
+  },
+  {
+    "id": "q-45",
+    "topicId": "u2-t6",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\ni = 1\nwhile i < 4:\n    print(i, end=' ')\n    i += 1",
+    "options": null,
+    "correct": "1 2 3 ",
+    "explanation": "i starts at 1, prints 1 2 3; when i becomes 4, condition 4 < 4 is False and loop terminates."
+  },
+  {
+    "id": "q-46",
+    "topicId": "u2-t7",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of:\ncount = 0\nfor x in 'EXAM':\n    count += 1\nprint(count)",
+    "options": null,
+    "correct": "4",
+    "explanation": "The for loop iterates once for each character in 'EXAM' (4 iterations)."
+  },
+  {
+    "id": "q-47",
+    "topicId": "u2-t7",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "Which keyword is used in Python to iterate through sequence members in a for loop?",
+    "options": [
+      "in",
+      "of",
+      "range",
+      "from"
+    ],
+    "correct": "in",
+    "explanation": "The 'in' keyword connects the iteration variable to the sequence."
+  },
+  {
+    "id": "q-48",
+    "topicId": "u2-t8",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "What values are produced by the call range(1, 6)?",
+    "options": [
+      "[1, 2, 3, 4, 5, 6]",
+      "[1, 2, 3, 4, 5]",
+      "[0, 1, 2, 3, 4, 5]",
+      "[2, 3, 4, 5, 6]"
+    ],
+    "correct": "[1, 2, 3, 4, 5]",
+    "explanation": "The stop value in range() is always exclusive (stop-1), so range(1, 6) ends at 5."
+  },
+  {
+    "id": "q-49",
+    "topicId": "u2-t8",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\nfor i in range(10, 0, -3):\n    print(i, end=' ')",
+    "options": null,
+    "correct": "10 7 4 1 ",
+    "explanation": "Starts at 10, decreases by 3 each step: 10, 7, 4, 1 (next would be -2, which is <= 0 stop limit)."
+  },
+  {
+    "id": "q-50",
+    "topicId": "u2-t9",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "How many total stars are printed by:\nfor i in range(2):\n    for j in range(3):\n        print('*', end='')",
+    "options": null,
+    "correct": "******",
+    "explanation": "Outer loop runs 2 times, inner runs 3 times. Total stars = 2 * 3 = 6 stars."
+  },
+  {
+    "id": "q-51",
+    "topicId": "u2-t10",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "Which statement is used to terminate a loop completely and immediately?",
+    "options": [
+      "continue",
+      "break",
+      "pass",
+      "exit"
+    ],
+    "correct": "break",
+    "explanation": "The 'break' statement terminates the enclosing loop immediately."
+  },
+  {
+    "id": "q-52",
+    "topicId": "u2-t10",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "Which statement skips only the current iteration of a loop and moves to the next?",
+    "options": [
+      "continue",
+      "break",
+      "pass",
+      "skip"
+    ],
+    "correct": "continue",
+    "explanation": "The 'continue' statement bypasses remaining statements in the current iteration and begins the next."
+  },
+  {
+    "id": "q-53",
+    "topicId": "u2-t10",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\nfor i in range(1, 6):\n    if i == 3:\n        continue\n    print(i, end=' ')",
+    "options": null,
+    "correct": "1 2 4 5 ",
+    "explanation": "When i == 3, continue skips printing 3. All other values (1, 2, 4, 5) print normally."
+  },
+  {
+    "id": "q-54",
+    "topicId": "u2-t10",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "What is the function of the 'pass' statement in Python?",
+    "options": [
+      "Skips to next iteration",
+      "Exits the program",
+      "Null statement that does nothing",
+      "Terminates loop"
+    ],
+    "correct": "Null statement that does nothing",
+    "explanation": "pass is a syntactic placeholder used when code is required syntactically but no action is needed."
+  },
+  {
+    "id": "q-55",
+    "topicId": "u2-t11",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 0",
+    "question": "Which brackets are used to create a list in Python?",
+    "options": [
+      "()",
+      "{}",
+      "[]",
+      "<>"
+    ],
+    "correct": "[]",
+    "explanation": "Lists are defined using square brackets []. (Parentheses () are tuples, {} are dicts/sets)."
+  },
+  {
+    "id": "q-56",
+    "topicId": "u2-t11",
+    "unit": "Unit-II",
+    "category": "TrueFalse",
+    "level": "Level 0",
+    "question": "A Python list can hold items of different data types (heterogeneous).",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct": "True",
+    "explanation": "Python lists can store integers, floats, strings, and booleans together in the same list."
+  },
+  {
+    "id": "q-57",
+    "topicId": "u2-t12",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of:\nnums = [10, 20, 30, 40, 50]\nprint(nums[1:4])",
+    "options": null,
+    "correct": "[20, 30, 40]",
+    "explanation": "Slice nums[1:4] extracts elements from index 1 up to index 3 (stop index 4 is excluded)."
+  },
+  {
+    "id": "q-58",
+    "topicId": "u2-t12",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\narr = [1, 2, 3, 4]\nprint(arr[::-1])",
+    "options": null,
+    "correct": "[4, 3, 2, 1]",
+    "explanation": "Slice [::-1] with step -1 reverses the list."
+  },
+  {
+    "id": "q-59",
+    "topicId": "u2-t13",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of:\nx = [10, 20, 30]\nx[1] = 99\nprint(x)",
+    "options": null,
+    "correct": "[10, 99, 30]",
+    "explanation": "Lists are mutable, so assigning to index 1 replaces 20 with 99."
+  },
+  {
+    "id": "q-60",
+    "topicId": "u2-t13",
+    "unit": "Unit-II",
+    "category": "TrueFalse",
+    "level": "Level 1",
+    "question": "Python lists are immutable objects.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct": "False",
+    "explanation": "Lists are mutable; elements can be modified, appended, and deleted in place."
+  },
+  {
+    "id": "q-61",
+    "topicId": "u2-t14",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\nitems = ['A', 'B', 'C']\nval = items.pop()\nprint(val, items)",
+    "options": null,
+    "correct": "C ['A', 'B']",
+    "explanation": "pop() with no arguments removes and returns the last element ('C'), leaving ['A', 'B']."
+  },
+  {
+    "id": "q-62",
+    "topicId": "u2-t14",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 2",
+    "question": "What is the difference between remove() and pop() for Python lists?",
+    "options": [
+      "remove takes value, pop takes index",
+      "remove takes index, pop takes value",
+      "Both are identical",
+      "pop cannot remove elements"
+    ],
+    "correct": "remove takes value, pop takes index",
+    "explanation": "remove(x) searches and removes the first occurrence of value x; pop([i]) removes by index and returns it."
+  },
+  {
+    "id": "q-63",
+    "topicId": "u2-t15",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of:\nvals = [10, 5, 20]\nprint(min(vals), max(vals), sum(vals))",
+    "options": null,
+    "correct": "5 20 35",
+    "explanation": "min() gives 5, max() gives 20, sum() calculates 10+5+20=35."
+  },
+  {
+    "id": "q-64",
+    "topicId": "u2-t15",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\nscores = [40, 60]\nprint(sum(scores) / len(scores))",
+    "options": null,
+    "correct": "50.0",
+    "explanation": "sum(scores) is 100, len is 2. 100 / 2 = 50.0 (float division)."
+  },
+  {
+    "id": "q-65",
+    "topicId": "u2-t16",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\nL = [1, 2]\nL.append([3, 4])\nprint(len(L))",
+    "options": null,
+    "correct": "3",
+    "explanation": "append() adds its argument as a single element, so L becomes [1, 2, [3, 4]] with length 3."
+  },
+  {
+    "id": "q-66",
+    "topicId": "u2-t16",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\nL = [1, 2]\nL.extend([3, 4])\nprint(len(L))",
+    "options": null,
+    "correct": "4",
+    "explanation": "extend() iterates through [3, 4] and appends each element individually, making L = [1, 2, 3, 4] with length 4."
+  },
+  {
+    "id": "q-67",
+    "topicId": "u2-t16",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of:\narr = [10, 20, 10, 30, 10]\nprint(arr.count(10))",
+    "options": null,
+    "correct": "3",
+    "explanation": "count(10) returns the frequency of 10 in the list, which is 3."
+  },
+  {
+    "id": "q-68",
+    "topicId": "u2-t17",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "How are 1D arrays implemented in standard Python without external libraries?",
+    "options": [
+      "Using linked lists",
+      "Using Python lists",
+      "Using tuples",
+      "Using strings"
+    ],
+    "correct": "Using Python lists",
+    "explanation": "Standard Python implements arrays conceptually using homogeneous lists."
+  },
+  {
+    "id": "q-69",
+    "topicId": "u1-t3",
+    "unit": "Unit-I",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "Which of the following can be used to write multi-line explanatory notes or docstrings in Python?",
+    "options": [
+      "''' ... '''",
+      "<!-- ... -->",
+      "/* ... */",
+      "-- ... --"
+    ],
+    "correct": "''' ... '''",
+    "explanation": "Triple quotes (''' or \"\"\") allow strings to span multiple lines and serve as multi-line comments or docstrings."
+  },
+  {
+    "id": "q-70",
+    "topicId": "u1-t5",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\nx = 50\nx = 'Python'\nprint(type(x))",
+    "options": null,
+    "correct": "<class 'str'>",
+    "explanation": "Due to dynamic typing, reassigning a string to variable 'x' changes its type dynamically to str."
+  },
+  {
+    "id": "q-71",
+    "topicId": "u1-t11",
+    "unit": "Unit-I",
+    "category": "PredictOutput",
+    "level": "Level 1",
+    "question": "What is the output of:\nx = 15\nx %= 4\nprint(x)",
+    "options": null,
+    "correct": "3",
+    "explanation": "x %= 4 computes 15 % 4 which leaves remainder 3, assigning 3 back to x."
+  },
+  {
+    "id": "q-72",
+    "topicId": "u2-t2",
+    "unit": "Unit-II",
+    "category": "MCQ",
+    "level": "Level 1",
+    "question": "In a simple 'if' statement, what happens if the condition evaluates to False?",
+    "options": [
+      "Program terminates with error",
+      "The indented statements are bypassed",
+      "The compiler repeats the test",
+      "Outputs False"
+    ],
+    "correct": "The indented statements are bypassed",
+    "explanation": "If the condition is False, the indented body is skipped and execution proceeds with the subsequent line."
+  },
+  {
+    "id": "q-73",
+    "topicId": "u2-t5",
+    "unit": "Unit-II",
+    "category": "PredictOutput",
+    "level": "Level 2",
+    "question": "What is the output of:\na, b = 10, 5\nif a > 8:\n    if b > 8:\n        print('High')\n    else:\n        print('Medium')\nelse:\n    print('Low')",
+    "options": null,
+    "correct": "Medium",
+    "explanation": "a > 8 (10 > 8) is True, entering outer if. Inner check b > 8 (5 > 8) is False, triggering inner else which prints 'Medium'."
+  },
+  {
+    "id": "q-74",
+    "topicId": "u1-t2",
+    "unit": "Unit-I",
+    "category": "Definition",
+    "level": "Level 1",
+    "question": "Define 'Identifier' in Python and state its primary purpose in programming.",
+    "options": null,
+    "correct": "An identifier is a user-defined name given to a variable, function, class, or object to uniquely identify it in memory.",
+    "explanation": "Identifiers act as custom labels for memory locations holding objects and code blocks."
+  },
+  {
+    "id": "q-75",
+    "topicId": "u2-t13",
+    "unit": "Unit-II",
+    "category": "Definition",
+    "level": "Level 1",
+    "question": "What is meant by 'List Mutability' in Python?",
+    "options": null,
+    "correct": "List mutability means list elements can be modified, added, or removed in-place without altering the list's memory address.",
+    "explanation": "Unlike immutable strings and tuples, lists allow direct in-place mutation via indexing and methods."
+  },
+  {
+    "id": "q-76",
+    "topicId": "u1-t9",
+    "unit": "Unit-I",
+    "category": "ShortAnswer",
+    "level": "Level 2",
+    "question": "Differentiate between the division operator '/' and floor division operator '//' in Python with examples.",
+    "options": null,
+    "correct": "'/' returns float quotient (e.g. 7/2 = 3.5); '//' returns integer quotient rounded down (e.g. 7//2 = 3).",
+    "explanation": "In Python 3, '/' always produces a float result, while '//' truncates the decimal portion."
+  },
+  {
+    "id": "q-77",
+    "topicId": "u2-t10",
+    "unit": "Unit-II",
+    "category": "ShortAnswer",
+    "level": "Level 2",
+    "question": "Explain the difference between 'break' and 'continue' branching statements in loops.",
+    "options": null,
+    "correct": "'break' terminates the entire loop immediately; 'continue' skips only the remaining statements of the current iteration and advances to the next.",
+    "explanation": "break exits the loop structure completely, whereas continue proceeds to the next iteration."
+  },
+  {
+    "id": "q-78",
+    "topicId": "u1-t4",
+    "unit": "Unit-I",
+    "category": "Debugging",
+    "level": "Level 2",
+    "question": "Identify the error in this code and write the corrected statement:\nage = input('Enter age: ')\nnext_year = age + 1",
+    "options": null,
+    "correct": "age = int(input('Enter age: '))",
+    "explanation": "input() returns a string. Attempting string + int raises TypeError. Typecasting age to int fixes the issue."
+  },
+  {
+    "id": "q-79",
+    "topicId": "u2-t3",
+    "unit": "Unit-II",
+    "category": "Debugging",
+    "level": "Level 2",
+    "question": "Find the syntax error in the following conditional construct:\nnum = 14\nif num % 2 = 0:\n    print('Even')",
+    "options": null,
+    "correct": "if num % 2 == 0:",
+    "explanation": "Single '=' is the assignment operator. Equality comparison in an if condition requires double '=='."
+  },
+  {
+    "id": "q-80",
+    "topicId": "u1-t9",
+    "unit": "Unit-I",
+    "category": "CodingExercise",
+    "level": "Level 2",
+    "question": "Write a 2-line Python script that swaps the values of two variables x and y without using a temporary third variable.",
+    "options": null,
+    "correct": "x, y = 10, 20\nx, y = y, x",
+    "explanation": "Python supports tuple packing and unpacking, allowing direct variable swapping with 'x, y = y, x'."
+  },
+  {
+    "id": "q-81",
+    "topicId": "u2-t8",
+    "unit": "Unit-II",
+    "category": "CodingExercise",
+    "level": "Level 2",
+    "question": "Write a Python for loop using range() to print odd numbers from 1 to 9 on a single line separated by spaces.",
+    "options": null,
+    "correct": "for i in range(1, 10, 2):\n    print(i, end=' ')",
+    "explanation": "range(1, 10, 2) starts at 1, steps by 2, and ends before 10, generating 1, 3, 5, 7, 9."
+  },
+  {
+    "id": "q-82",
+    "topicId": "u1-t14",
+    "unit": "Unit-I",
+    "category": "Descriptive",
+    "level": "Level 3",
+    "question": "What is Operator Precedence and Associativity? Explain the PEMDAS rule with special emphasis on the associativity of the exponentiation (**) operator.",
+    "options": null,
+    "correct": "Precedence specifies evaluation priority; associativity specifies direction for equal-precedence operators. Exponentiation (**) has right-to-left associativity (e.g. 2**3**2 = 2**9 = 512).",
+    "explanation": "Precedence rules resolve ambiguity in complex expressions; exponentiation evaluates right-to-left, unlike addition/subtraction."
+  },
+  {
+    "id": "q-83",
+    "topicId": "u2-t17",
+    "unit": "Unit-II",
+    "category": "Descriptive",
+    "level": "Level 3",
+    "question": "Explain how 1D arrays are implemented using lists in Python. Describe traversal and linear search operations.",
+    "options": null,
+    "correct": "1D arrays are simulated using homogeneous lists. Traversal uses a for loop over range(len(arr)). Linear search checks arr[i] == target sequentially.",
+    "explanation": "Python lists provide contiguous pointer indexing, enabling standard array algorithms including insertion, traversal, and linear searching."
+  }
+]
